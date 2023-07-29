@@ -39,6 +39,15 @@
           "keyword": "Blight"
         }
       ]
+    },
+    {
+        "ringName": "Alumni Ring",
+        "associations": [
+          {
+            "keyword": "Elemental Damage",
+            "damageValue": 10
+          }
+        ]
     }
   ]
   

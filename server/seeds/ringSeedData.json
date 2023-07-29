@@ -10,5 +10,9 @@
     {
         "name": "Alchemy Stone",
         "description": "Increases base Lifesteal by 5% while suffering from a negative STATUS or BLIGHT Effect."
+    },
+    {
+        "name": "Alumni Ring",
+        "description": "Increases all Elemental damage dealt by 10%."
     }
 ]
