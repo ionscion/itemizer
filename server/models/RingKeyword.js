@@ -25,13 +25,17 @@ RingKeyword.init(
         key: "id",
       },
     },
+    damageValue: {
+      type: DataTypes.FLOAT, // Assuming damage values can be floating-point numbers
+      allowNull: true, // Set to false if damage values are always required
+    },
   },
   {
     sequelize,
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: "ring_keyword", // Update the model name to match the table name in the database
+    modelName: "ring_keyword",
   }
 );
 

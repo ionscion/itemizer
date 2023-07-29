@@ -1,0 +1,44 @@
+[
+    {
+      "ringName": "Acid Stone",
+      "associations": [
+        {
+          "keyword": "Acid Damage",
+          "damageValue": 10
+        },
+        {
+          "keyword": "Acid Resistance",
+          "damageValue": 15
+        }
+      ]
+    },
+    {
+      "ringName": "Akari War Band",
+      "associations": [
+        {
+          "keyword": "Critical Chance",
+          "damageValue": 15
+        },
+        {
+          "keyword": "Critical Damage",
+          "damageValue": 15
+        }
+      ]
+    },
+    {
+      "ringName": "Alchemy Stone",
+      "associations": [
+        {
+          "keyword": "Lifesteal",
+          "damageValue": 5
+        },
+        {
+          "keyword": "Status"
+        },
+        {
+          "keyword": "Blight"
+        }
+      ]
+    }
+  ]
+  

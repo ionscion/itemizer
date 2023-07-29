@@ -3,7 +3,7 @@ const path = require('path');
 const dotenv = require('dotenv');
 
 // Set the path to the root directory using __dirname
-const rootDir = path.join(__dirname, '..'); // Go up one level from the 'server' folder
+const rootDir = path.join(__dirname, '../../'); // Go up one level from the 'server' folder
 
 // Load the .env file from the root directory
 dotenv.config({ path: path.join(rootDir, '.env') });

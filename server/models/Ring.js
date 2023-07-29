@@ -1,6 +1,7 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
 
+
 class Ring extends Model {}
 
 Ring.init(
@@ -28,5 +29,6 @@ Ring.init(
     modelName: "ring",
   }
 );
+
 
 module.exports = Ring;
