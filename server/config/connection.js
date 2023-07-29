@@ -1,5 +1,12 @@
 const Sequelize = require('sequelize');
-require('dotenv').config();
+const path = require('path');
+const dotenv = require('dotenv');
+
+// Set the path to the root directory using __dirname
+const rootDir = path.join(__dirname, '..'); // Go up one level from the 'server' folder
+
+// Load the .env file from the root directory
+dotenv.config({ path: path.join(rootDir, '.env') });
 
 // create connection to our database, pass in your MySQL information for username and password
 const sequelize = new Sequelize(
