@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS remnant_db;
+CREATE DATABASE remnant_db;
