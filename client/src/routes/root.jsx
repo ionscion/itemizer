@@ -2,10 +2,13 @@ import { useTheme, ThemeProvider, createTheme } from "@mui/material/styles";
 import { Switch, FormControlLabel } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import { useEffect, useContext, useState } from "react";
-import App from "../App"
+import ResponsiveAppBar from "../components/AppBar";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function Root() {
   const [darkMode, setDarkMode] = useState(false);
+  const { isAuthenticated, getIdTokenClaims } = useAuth0();
+
   // const { isAuthenticated, getIdTokenClaims } = useAuth0();
   // const { getToken, apiInfo, accessToken } = useContext(ClientContext);
 
@@ -32,10 +35,10 @@ function Root() {
         default: darkMode ? "#424242" : "#FFFFFF", // Set the default background color based on the dark mode
       },
       primary: {
-        main: "#0B746C",
+        main: "#591AEE",
       },
       secondary: {
-        main: "#0B746C",
+        main: "#591AEE",
       },
     },
     typography: {
@@ -78,11 +81,7 @@ function Root() {
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <FormControlLabel
-          control={<Switch checked={darkMode} onChange={toggleDarkMode} />}
-          label={darkMode ? "Dark Mode" : "Light Mode"}
-        />
-        <App />
+        <ResponsiveAppBar props={[darkMode, toggleDarkMode]} />
       </ThemeProvider>
     </>
   );
