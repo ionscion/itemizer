@@ -4,6 +4,7 @@ import Root from "./routes/root";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "./error-page";
 import { Auth0Provider } from "@auth0/auth0-react";
+import { ContextProvider } from "./context/context";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       redirect_uri: window.location.origin,
     }}
   >
-    <RouterProvider router={router} />
+    <ContextProvider>
+      <RouterProvider router={router} />
+    </ContextProvider>
   </Auth0Provider>
 );
