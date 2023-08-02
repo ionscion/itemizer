@@ -33,7 +33,7 @@ function Root() {
     palette: {
       mode: darkMode ? "dark" : "light",
       background: {
-        default: darkMode ? "#424242" : "#FFFFFF", // Set the default background color based on the dark mode
+        default: darkMode ? "#424242" : "#C5C4C9", // Set the default background color based on the dark mode
       },
       primary: {
         main: "#591AEE",

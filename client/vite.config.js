@@ -8,7 +8,7 @@ export default defineConfig({
     port: 3000,
     open: true,
     proxy: {
-      '/mysql': {
+      '/api': {
         target: 'http://localhost:3005',
         secure: false,
         changeOrigin: true,

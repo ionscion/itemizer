@@ -1,22 +1,37 @@
 import { createContext, useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
-
 const Context = createContext();
 
 const ContextProvider = ({ children }) => {
-  //api calls
-
   const { isAuthenticated, getIdTokenClaims } = useAuth0();
   const [accessToken, setAccessToken] = useState(null);
+  const [apiInfo, setApiInfo] = useState(null);
 
-  return (
-    <Context.Provider
-      value={{ isAuthenticated, getIdTokenClaims, accessToken, setAccessToken }}
-    >
-      {children}
-    </Context.Provider>
-  );
+  const getAllRings = async () => {
+    try {
+      const response = await fetch("/api/rings");
+      const data = await response.json();
+      console.log(data);
+      setApiInfo(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getAllRings();
+  }, []);
+
+  const valueToShare = {
+    getAllRings,
+    apiInfo,
+    isAuthenticated,
+    getIdTokenClaims,
+    accessToken,
+  };
+
+  return <Context.Provider value={valueToShare}>{children}</Context.Provider>;
 };
 
 export { ContextProvider };
