@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
+import  useCustomContext from "../hooks/useCustomContext";
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 70 },
@@ -35,6 +36,7 @@ const rows = [
 ];
 
 export default function DataTable() {
+  const { apiInfo } = useCustomContext();
   return (
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid

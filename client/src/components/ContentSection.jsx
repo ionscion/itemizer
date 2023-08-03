@@ -4,6 +4,7 @@ import DataTable from "./DataTable";
 import Container from "@mui/material/Container";
 import { useContext } from "react";
 import Context from "../context/context";
+import TitlebarImageList from "../components/ImageList";
 
 function ContentSection() {
   const { apiInfo } = useContext(Context);
@@ -16,7 +17,7 @@ function ContentSection() {
   // });
 
   return (
-    <Container maxWidth="lg" className="mx-10">
+    <Container maxWidth="lg" className="mx-10 flex flex-col items-center">
       <div className="mt-5">
         <h1 className="text-center">Content Section</h1>
       </div>
@@ -32,8 +33,13 @@ function ContentSection() {
           );
         })}
       </div>
+      <div className="flex flex-col items-center">
+        <h1 className="text-center">Image List</h1>
+        <TitlebarImageList />
+      </div>
     </Container>
   );
+  
 }
 
 export default ContentSection;
