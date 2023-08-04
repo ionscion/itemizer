@@ -21,8 +21,8 @@ function ContentSection() {
       <div className="mt-5">
         <h1 className="text-center">Content Section</h1>
       </div>
-      <DataTable />
-      <div>
+      {/* <DataTable /> */}
+      {/* <div>
         <h1 className="text-center">Rings Baby</h1>
         {apiInfo?.map((ring) => {
           return (
@@ -32,9 +32,9 @@ function ContentSection() {
             </div>
           );
         })}
-      </div>
+      </div> */}
       <div className="flex flex-col items-center">
-        <h1 className="text-center">Image List</h1>
+        {/* <h1 className="text-center">Image List</h1> */}
         <TitlebarImageList />
       </div>
     </Container>

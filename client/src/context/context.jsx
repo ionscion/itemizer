@@ -12,7 +12,6 @@ const ContextProvider = ({ children }) => {
     try {
       const response = await fetch("/api/rings");
       const data = await response.json();
-      console.log(data);
       setApiInfo(data);
     } catch (error) {
       console.log(error);
