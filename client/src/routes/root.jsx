@@ -5,6 +5,7 @@ import { useEffect, useContext, useState } from "react";
 import ResponsiveAppBar from "../components/AppBar";
 import { useAuth0 } from "@auth0/auth0-react";
 import ContentSection from "../components/ContentSection";
+import { Outlet } from "react-router-dom";
 
 
 function Root() {
@@ -84,7 +85,8 @@ function Root() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <ResponsiveAppBar props={[darkMode, toggleDarkMode]} />
-        <ContentSection />
+        {/* <ContentSection /> */}
+        <Outlet />
       </ThemeProvider>
     </>
   );

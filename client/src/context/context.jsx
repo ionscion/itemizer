@@ -6,13 +6,24 @@ const Context = createContext();
 const ContextProvider = ({ children }) => {
   const { isAuthenticated, getIdTokenClaims } = useAuth0();
   const [accessToken, setAccessToken] = useState(null);
-  const [apiInfo, setApiInfo] = useState(null);
+  const [ringApiInfo, setRingApiInfo] = useState(null);
+  const [amuletApiInfo, setAmuletApiInfo] = useState(null);
 
   const getAllRings = async () => {
     try {
       const response = await fetch("/api/rings");
       const data = await response.json();
-      setApiInfo(data);
+      setRingApiInfo(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getAllAmulets = async () => {
+    try {
+      const response = await fetch("/api/amulets");
+      const data = await response.json();
+      setAmuletApiInfo(data);
     } catch (error) {
       console.log(error);
     }
@@ -20,11 +31,13 @@ const ContextProvider = ({ children }) => {
 
   useEffect(() => {
     getAllRings();
+    getAllAmulets();
   }, []);
 
   const valueToShare = {
     getAllRings,
-    apiInfo,
+    ringApiInfo,
+    amuletApiInfo,
     isAuthenticated,
     getIdTokenClaims,
     accessToken,

@@ -11,12 +11,13 @@ import BasicModal from './BasicModal';
 import {useState} from "react";
 
 export default function TitlebarImageList() {
-const { apiInfo } = useCustomContext();
+const { ringApiInfo } = useCustomContext();
 const [open, setOpen] = useState(false);
 const handleOpen = () => setOpen(true);
 const handleClose = () => setOpen(false);
 const [selectedItem, setSelectedItem] = useState(null);
-console.log(apiInfo);
+const [itemName, setItemName] = useState(null);
+console.log(ringApiInfo);
 
 
   return (
@@ -24,7 +25,7 @@ console.log(apiInfo);
       <ImageListItem key="Subheader" cols={2}>
         <ListSubheader component="div">Rings</ListSubheader>
       </ImageListItem>
-      {apiInfo?.map((item) => (
+      {ringApiInfo?.map((item) => (
         <ImageListItem key={item.id}>
           <img
             src={`${acidRingPic}?w=248&fit=crop&auto=format`}
@@ -42,6 +43,7 @@ console.log(apiInfo);
                 onClick={() => {
                   // Set the selected item data when clicking the info button
                   setSelectedItem(item.description);
+                  setItemName(item.name);
                   handleOpen(); // Open the modal
                 }}
               >
@@ -51,7 +53,7 @@ console.log(apiInfo);
           />
         </ImageListItem>
       ))}
-      <BasicModal open={open} handleOpen={handleOpen} handleClose={handleClose} selectedItem={selectedItem}/>
+      <BasicModal open={open} handleOpen={handleOpen} handleClose={handleClose} selectedItem={selectedItem} itemName={itemName}/>
     </ImageList>
   );
 }

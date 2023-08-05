@@ -5,25 +5,37 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "./error-page";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { ContextProvider } from "./context/context";
+import DataTable from "./components/DataTable";
+import ContentSection from "./components/ContentSection";
+import AboutCard from "./routes/About";
+import SupportCard from "./routes/Support";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
     errorElement: <ErrorPage />,
-    // children: [
-    //   {
-    //     path: "clients/details/:id",
-    //     element: <ClientProfileDetails />,
-    //     loader: ({ params }) => {
-    //       return { id: params.id };
-    //     },
-    //   },
-    //   {
-    //     path: "clients",
-    //     element: <ClientDataTable />,
-    //   },
-    // ],
+    children: [
+      {
+        path: "items",
+        element: <ContentSection />,
+        loader: ({ params }) => {
+          return { id: params.id };
+        },
+      },
+      {
+        path: "builds",
+        element: <DataTable />,
+      },
+      {
+        path: "about",
+        element: <AboutCard />,
+      },
+      {
+        path: "support",
+        element: <SupportCard />,
+      },
+    ],
   },
 ]);
 

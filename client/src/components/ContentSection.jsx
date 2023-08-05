@@ -7,14 +7,7 @@ import Context from "../context/context";
 import TitlebarImageList from "../components/ImageList";
 
 function ContentSection() {
-  const { apiInfo } = useContext(Context);
-
-  // const ringData = apiInfo?.map((ring) => {
-  //     return {
-  //         name: ring.name,
-  //         description: ring.description,
-  //     };
-  // });
+  const { ringApiInfo, amuletApiInfo } = useContext(Context);
 
   return (
     <Container maxWidth="lg" className="mx-10 flex flex-col items-center">
@@ -23,8 +16,8 @@ function ContentSection() {
       </div>
       {/* <DataTable /> */}
       {/* <div>
-        <h1 className="text-center">Rings Baby</h1>
-        {apiInfo?.map((ring) => {
+        <h1 className="text-center">Amulets Baby</h1>
+        {amuletApiInfo?.map((ring) => {
           return (
             <div key={ring.id}>
               <h1>{ring.name}</h1>

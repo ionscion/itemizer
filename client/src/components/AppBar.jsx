@@ -11,11 +11,10 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import DiamondIcon from '@mui/icons-material/Diamond';
+import DiamondIcon from "@mui/icons-material/Diamond";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Switch, FormControlLabel } from "@mui/material";
-
-const pages = ["Builds", "Items", "Support", "About"];
+import { Outlet, Link } from "react-router-dom";
 
 function ResponsiveAppBar({ props: [darkMode, toggleDarkMode] }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -60,6 +59,7 @@ function ResponsiveAppBar({ props: [darkMode, toggleDarkMode] }) {
   const handleLogin = () => {
     loginWithRedirect();
   };
+  const pages = ["Builds", "Items", "About", "Support"];
 
   const settings = isAuthenticated
     ? ["Profile", "Account", "Dashboard", "Logout"]
@@ -119,7 +119,8 @@ function ResponsiveAppBar({ props: [darkMode, toggleDarkMode] }) {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                  {/* <Typography textAlign="center">{page}</Typography> */}
+                  <Link to={`${page}`}>{page}</Link>
                 </MenuItem>
               ))}
             </Menu>
@@ -145,13 +146,15 @@ function ResponsiveAppBar({ props: [darkMode, toggleDarkMode] }) {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <Button
+              <Link
+                to={`${page}`}
                 key={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
+                className="mx-auto"
               >
                 {page}
-              </Button>
+              </Link>
             ))}
             {/* {!isAuthenticated && (
               <Button
@@ -166,7 +169,7 @@ function ResponsiveAppBar({ props: [darkMode, toggleDarkMode] }) {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remnant"  />
+                <Avatar alt="Remnant" />
               </IconButton>
             </Tooltip>
             <Menu

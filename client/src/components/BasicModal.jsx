@@ -16,7 +16,7 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal({ open, handleClose, selectedItem }) {
+export default function BasicModal({ open, handleClose, selectedItem, itemName }) {
 //   const [open, setOpen] = React.useState(false);
 //   const handleOpen = () => setOpen(true);
 //   const handleClose = () => setOpen(false);
@@ -31,11 +31,11 @@ export default function BasicModal({ open, handleClose, selectedItem }) {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            {selectedItem}
+           {itemName}
           </Typography>
-          {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography> */}
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          {selectedItem}
+          </Typography>
         </Box>
       </Modal>
     </div>

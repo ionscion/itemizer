@@ -1,0 +1,11 @@
+[
+  {
+    "amuletName": "Filthy Pendant",
+    "associations": [
+      {
+        "keyword": "Lifesteal",
+        "damageValue": 40
+      }
+    ]
+  }
+]
