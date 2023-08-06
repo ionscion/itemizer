@@ -25,5 +25,20 @@
     },
     {
         "keyword": "Elemental Damage"
+    },
+    {
+        "keyword": "Elemental Resistance"
+    },
+    {
+        "keyword": "Damage Reduction"
+    },
+    {
+        "keyword": "Health"
+    },
+    {
+        "keyword": "Status Effects"
+    },
+    {
+        "keyword": "Haste"
     }
 ]  

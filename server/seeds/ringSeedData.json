@@ -14,5 +14,13 @@
     {
         "name": "Alumni Ring",
         "description": "Increases all Elemental damage dealt by 10%."
+    },
+    {
+        "name": "Amber Moonstone",
+        "description": "When the wearer's Health drops below 30%, all incoming damage is reduced by 25% and wearer becomes immune to Temporary Status Effects."
+    },
+    {
+        "name": "Anastasija's Inspiration",
+        "description": "When receiving healing effects, gain HASTE for 10s."
     }
 ]

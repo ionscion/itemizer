@@ -22,9 +22,9 @@ console.log(ringApiInfo);
 
   return (
     <ImageList sx={{ width: 500, height: 450 }}>
-      <ImageListItem key="Subheader" cols={2}>
+      {/* <ImageListItem key="Subheader" cols={2}>
         <ListSubheader component="div">Rings</ListSubheader>
-      </ImageListItem>
+      </ImageListItem> */}
       {ringApiInfo?.map((item) => (
         <ImageListItem key={item.id}>
           <img

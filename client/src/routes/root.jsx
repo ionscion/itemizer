@@ -4,7 +4,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { useEffect, useContext, useState } from "react";
 import ResponsiveAppBar from "../components/AppBar";
 import { useAuth0 } from "@auth0/auth0-react";
-import ContentSection from "../components/ContentSection";
+import ContentSection from "../components/RingSection";
 import { Outlet } from "react-router-dom";
 
 

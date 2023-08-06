@@ -1,56 +1,89 @@
-import * as React from 'react';
-import { DataGrid } from '@mui/x-data-grid';
-import  useCustomContext from "../hooks/useCustomContext";
+import * as React from "react";
+import { DataGrid } from "@mui/x-data-grid";
+import useCustomContext from "../hooks/useCustomContext";
+import Container from "@mui/material/Container";
+import { useEffect } from "react";
 
-const columns = [
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'firstName', headerName: 'First name', width: 130 },
-  { field: 'lastName', headerName: 'Last name', width: 130 },
-  {
-    field: 'age',
-    headerName: 'Age',
-    type: 'number',
-    width: 90,
-  },
-  {
-    field: 'fullName',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: (params) =>
-      `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-  },
+// const columns = [
+//   { field: "id", headerName: "ID", width: 70 },
+//   { field: "firstName", headerName: "First name", width: 130 },
+//   { field: "lastName", headerName: "Last name", width: 130 },
+//   {
+//     field: "age",
+//     headerName: "Age",
+//     type: "number",
+//     width: 90,
+//   },
+//   {
+//     field: "fullName",
+//     headerName: "Full name",
+//     description: "This column has a value getter and is not sortable.",
+//     sortable: false,
+//     width: 160,
+//     valueGetter: (params) =>
+//       `${params.row.firstName || ""} ${params.row.lastName || ""}`,
+//   },
+// ];
+
+const columns2 = [
+  { field: "id", headerName: "ID", width: 70 },
+  { field: "name", headerName: "Name", width: 130 },
+  { field: "description", headerName: "Description", width: 500 },
+  {field: "keywords", headerName: "Keywords", width: 300, valueGetter: (params) => `${params.row.keywords.map((item) => `${item.keyword} ${item.damageValue}`).join(', ')}`},
+
 ];
 
-const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-  { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-];
+//id, name, description
 
 export default function DataTable() {
-  const { apiInfo } = useCustomContext();
+  const { ringApiInfo, amuletApiInfo } = useCustomContext();
+  const [rows2, setRows2] = React.useState([]);
+
+  useEffect(() => {
+    // Check if ringApiInfo is available
+    if (ringApiInfo) {
+      console.log(ringApiInfo);
+      // Update rows2 with the mapped data
+      setRows2(
+        ringApiInfo.map((item) => {
+          // Map over the keywords array for each item and create formatted keyword information
+          const keywordsInfo = item.keywords.map((keywordItem) => ({
+            keyword: keywordItem.keyword,
+            damageValue: keywordItem.ring_keyword.damageValue,
+          }));
+
+          return {
+            id: item.id,
+            name: item.name,
+            description: item.description,
+            keywords: keywordsInfo, // Include the formatted keywords in the object
+          };
+        })
+      );
+    }
+  }, [ringApiInfo]);
+  
+
   return (
-    <div style={{ height: 400, width: '100%' }}>
-      <DataGrid
-        className='mt-5'
-        rows={rows}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: { page: 0, pageSize: 5 },
-          },
-        }}
-        pageSizeOptions={[5, 10]}
-        checkboxSelection
-      />
-    </div>
+    <Container maxWidth="lg" className="mx-10 flex flex-col items-center">
+      <div className="mt-5">
+        <h1 className="text-center">Builds</h1>
+      </div>
+
+      <div style={{ height: 400, width: "100%" }}>
+        <DataGrid
+          className="mt-5"
+          rows={rows2}
+          columns={columns2}
+          initialState={{
+            pagination: {
+              paginationModel: { page: 0, pageSize: 5 },
+            },
+          }}
+          pageSizeOptions={[5, 10]}
+          checkboxSelection
+        />
+      </div>
+    </Container>
   );
 }
