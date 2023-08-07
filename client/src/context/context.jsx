@@ -8,6 +8,7 @@ const ContextProvider = ({ children }) => {
   const [accessToken, setAccessToken] = useState(null);
   const [ringApiInfo, setRingApiInfo] = useState(null);
   const [amuletApiInfo, setAmuletApiInfo] = useState(null);
+  const [keywordApiInfo, setKeywordApiInfo] = useState(null);
 
   const getAllRings = async () => {
     try {
@@ -29,9 +30,20 @@ const ContextProvider = ({ children }) => {
     }
   };
 
+  const getAllKeywords = async () => {
+    try {
+      const response = await fetch("/api/keywords");
+      const data = await response.json();
+      setKeywordApiInfo(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getAllRings();
     getAllAmulets();
+    getAllKeywords();
   }, []);
 
   const valueToShare = {
@@ -41,6 +53,8 @@ const ContextProvider = ({ children }) => {
     isAuthenticated,
     getIdTokenClaims,
     accessToken,
+    getAllKeywords,
+    keywordApiInfo
   };
 
   return <Context.Provider value={valueToShare}>{children}</Context.Provider>;

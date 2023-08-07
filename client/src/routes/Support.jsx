@@ -33,7 +33,7 @@ const card = (
 
 export default function SupportCard() {
   return (
-    <Box sx={{ minWidth: 275 }}>
+    <Box sx={{ minWidth: 275 }} className="m-5">
       <Card variant="outlined" className="mt-5">
         {card}
       </Card>

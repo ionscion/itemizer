@@ -4,33 +4,20 @@ import useCustomContext from "../hooks/useCustomContext";
 import Container from "@mui/material/Container";
 import { useEffect } from "react";
 
-// const columns = [
-//   { field: "id", headerName: "ID", width: 70 },
-//   { field: "firstName", headerName: "First name", width: 130 },
-//   { field: "lastName", headerName: "Last name", width: 130 },
-//   {
-//     field: "age",
-//     headerName: "Age",
-//     type: "number",
-//     width: 90,
-//   },
-//   {
-//     field: "fullName",
-//     headerName: "Full name",
-//     description: "This column has a value getter and is not sortable.",
-//     sortable: false,
-//     width: 160,
-//     valueGetter: (params) =>
-//       `${params.row.firstName || ""} ${params.row.lastName || ""}`,
-//   },
-// ];
-
 const columns2 = [
   { field: "id", headerName: "ID", width: 70 },
   { field: "name", headerName: "Name", width: 130 },
   { field: "description", headerName: "Description", width: 500 },
-  {field: "keywords", headerName: "Keywords", width: 300, valueGetter: (params) => `${params.row.keywords.map((item) => `${item.keyword} ${item.damageValue}`).join(', ')}`},
-
+  {
+    field: "keywords",
+    headerName: "Keywords",
+    width: 300,
+    valueGetter: (params) =>
+      `${params.row.keywords
+        .map((item) => `${item.keyword} ${item.damageValue ?? ""}`)
+        .join(", ")
+        .trim()}`,
+  },
 ];
 
 //id, name, description
@@ -62,7 +49,6 @@ export default function DataTable() {
       );
     }
   }, [ringApiInfo]);
-  
 
   return (
     <Container maxWidth="lg" className="mx-10 flex flex-col items-center">

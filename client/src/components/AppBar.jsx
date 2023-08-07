@@ -59,7 +59,7 @@ function ResponsiveAppBar({ props: [darkMode, toggleDarkMode] }) {
   const handleLogin = () => {
     loginWithRedirect();
   };
-  const pages = ["Items", "Builds", "About", "Support"];
+  const pages = ["Items", "Builds", "About", "Support", "Admin"];
 
   const settings = isAuthenticated
     ? ["Profile", "Account", "Dashboard", "Logout"]
