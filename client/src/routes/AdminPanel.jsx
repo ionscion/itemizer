@@ -7,8 +7,7 @@ function AdminPanel() {
   const [newKeyword, setNewKeyword] = useState("");
   const [newDamageValue, setNewDamageValue] = useState("");
   const [showCancel, setShowCancel] = useState(false);
-  const { keywordApiInfo } = useCustomContext();
- 
+  const { keywordApiInfo, addRing } = useCustomContext();
 
   useEffect(() => {
     if (keywordApiInfo) {
@@ -18,14 +17,66 @@ function AdminPanel() {
 
   const handleAddItem = (e) => {
     e.preventDefault();
-    console.log(e.target["ring-name"].value);
-    console.log(e.target["ring-description"].value);
-    console.log(e.target["keywords"].value);
-    console.log(e.target["damage-value"].value);
-    console.log(e.target["keywords-2"]?.value);
-    console.log(e.target["damage-value-2"]?.value);
-    console.log(e.target["keywords-3"]?.value);
-    console.log(e.target["damage-value-3"]?.value);
+    const keywordsArray = [];
+
+    // Check and add the first keyword
+    if (e.target["keywords"].value !== "") {
+      keywordsArray.push({
+        keyword: e.target["keywords"].value,
+        ring_keyword: {
+          damageValue: e.target["damage-value"].value,
+        },
+      });
+    } else if (e.target["new-keyword"].value) {
+      keywordsArray.push({
+        keyword: e.target["new-keyword"].value,
+        ring_keyword: {
+          damageValue: e.target["damage-value"].value,
+        },
+      });
+    }
+
+    // Check and add the second keyword
+    if (e.target["keywords-2"] && e.target["keywords-2"].value !== "") {
+      keywordsArray.push({
+        keyword: e.target["keywords-2"].value,
+        ring_keyword: {
+          damageValue: e.target["damage-value-2"]?.value,
+        },
+      });
+    } else if (e.target["new-keyword-2"] && e.target["new-keyword-2"].value) {
+      keywordsArray.push({
+        keyword: e.target["new-keyword-2"].value,
+        ring_keyword: {
+          damageValue: e.target["damage-value-2"]?.value,
+        },
+      });
+    }
+
+    // Check and add the third keyword
+    if (e.target["keywords-3"] && e.target["keywords-3"].value !== "") {
+      keywordsArray.push({
+        keyword: e.target["keywords-3"].value,
+        ring_keyword: {
+          damageValue: e.target["damage-value-3"]?.value,
+        },
+      });
+    } else if (e.target["new-keyword-3"] && e.target["new-keyword-3"].value) {
+      keywordsArray.push({
+        keyword: e.target["new-keyword-3"].value,
+        ring_keyword: {
+          damageValue: e.target["damage-value-3"]?.value,
+        },
+      });
+    }
+
+    // Now you can make the API request with the filtered array
+    addRing(
+      e.target["ring-name"].value,
+      e.target["ring-description"].value,
+      keywordsArray
+    );
+    window.location.reload();
   };
 
   const handleAddMoreKeys = (e) => {
@@ -67,13 +118,14 @@ function AdminPanel() {
           <label className="block text-sm font-medium text-gray-700">
             Ring Description
           </label>
-          <input
+          <textarea
             className="mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
             name="ring-description"
-            type="text"
+            rows={4} // You can adjust the number of rows to set the initial height
             placeholder="Ring description"
           />
         </div>
+
         <div>
           <label className="block text-sm font-medium text-gray-700">
             Keywords
@@ -91,6 +143,17 @@ function AdminPanel() {
               </option>
             ))}
           </select>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              New Keyword
+            </label>
+            <input
+              className="mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
+              name="new-keyword"
+              type="text"
+              placeholder="New Keyword"
+            />
+          </div>
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700">
@@ -144,6 +207,17 @@ function AdminPanel() {
                   </option>
                 ))}
               </select>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  New Keyword
+                </label>
+                <input
+                  className="mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
+                  name={`new-keyword-${index + 2}`} // Use a unique name for each additional keyword
+                  type="text"
+                  placeholder="New Keyword"
+                />
+              </div>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700">

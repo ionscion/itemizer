@@ -40,6 +40,26 @@ const ContextProvider = ({ children }) => {
     }
   };
 
+  const addRing = async (name, description, keywords) => {
+    try {
+      const response = await fetch("/api/rings", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: name,
+          description: description,
+          keywords: keywords, // Pass the array of keywords directly
+        }),
+      });
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getAllRings();
     getAllAmulets();
@@ -54,7 +74,8 @@ const ContextProvider = ({ children }) => {
     getIdTokenClaims,
     accessToken,
     getAllKeywords,
-    keywordApiInfo
+    keywordApiInfo,
+    addRing,
   };
 
   return <Context.Provider value={valueToShare}>{children}</Context.Provider>;
