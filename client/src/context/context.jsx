@@ -40,25 +40,52 @@ const ContextProvider = ({ children }) => {
     }
   };
 
-  const addRing = async (name, description, keywords) => {
+  const addRingWithImage = async (name, description, keywords) => {
     try {
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('description', description);
+        formData.append('keywords', keywords); // No need to stringify
+        // formData.append('img', img);
+
+        const response = await fetch("/api/rings", {
+            method: "POST",
+            body: formData,
+            headers: {
+              'Accept': 'multipart/form-data',
+            }
+        });
+
+        const data = await response.json();
+        console.log(data);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+const addRing = async (name, description, keywords) => {
+  try {
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('description', description);
+      formData.append('keywords', keywords); // No need to stringify
+
       const response = await fetch("/api/rings", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: name,
-          description: description,
-          keywords: keywords, // Pass the array of keywords directly
-        }),
+          method: "POST",
+          body: formData,
+          headers: {
+            'Accept': 'multipart/form-data',
+          }
       });
+
       const data = await response.json();
       console.log(data);
-    } catch (error) {
+  } catch (error) {
       console.log(error);
-    }
-  };
+  }
+};
+
+
 
   useEffect(() => {
     getAllRings();

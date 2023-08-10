@@ -7,6 +7,7 @@ function AdminPanel() {
   const [newKeyword, setNewKeyword] = useState("");
   const [newDamageValue, setNewDamageValue] = useState("");
   const [showCancel, setShowCancel] = useState(false);
+  const [imageFile, setImageFile] = useState(null);
   const { keywordApiInfo, addRing } = useCustomContext();
 
   useEffect(() => {
@@ -15,7 +16,15 @@ function AdminPanel() {
     }
   }, [keywordApiInfo]);
 
-  const handleAddItem = (e) => {
+  useEffect(() => {
+    console.log(imageFile);
+  }, [imageFile]);
+
+  const handleImageChange = (file) => {
+    setImageFile(file);
+  };
+
+  const handleAddItem = async (e) => {
     e.preventDefault();
     const keywordsArray = [];
 
@@ -70,13 +79,15 @@ function AdminPanel() {
       });
     }
 
+    console.log(imageFile);
     // Now you can make the API request with the filtered array
     addRing(
       e.target["ring-name"].value,
       e.target["ring-description"].value,
-      keywordsArray
+      keywordsArray,
+      imageFile
     );
-    window.location.reload();
+    // window.location.reload();
   };
 
   const handleAddMoreKeys = (e) => {
@@ -238,6 +249,17 @@ function AdminPanel() {
             </div>
           </div>
         ))}
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Image
+          </label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => handleImageChange(e.target.files[0])}
+          />
+        </div>
+
         <button
           type="submit"
           className="bg-violet-700 hover:bg-violet-800 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring focus:ring-blue-200"

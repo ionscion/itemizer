@@ -20,6 +20,10 @@ Ring.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    img: {
+      type: DataTypes.BLOB("long"), // Define as BLOB with the appropriate length
+      allowNull: true,
+    },
   },
   {
     sequelize,
