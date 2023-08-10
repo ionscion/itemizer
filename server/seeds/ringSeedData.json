@@ -1,26 +1,32 @@
 [
     {
         "name": "Acid Stone",
-        "description": "Increases ACID damage by 10% and ACID resistance by 15%."
+        "description": "Increases ACID damage by 10% and ACID resistance by 15%.",
+        "imgUrl": "acid-stone-ring"
     }, 
     {
         "name": "Akari War Band",
-        "description": "Perfect Dodges increase Critical Chance by 15% and Critical Damage by 15% for 15s."
+        "description": "Perfect Dodges increase Critical Chance by 15% and Critical Damage by 15% for 15s.",
+        "imgUrl": "akari-war-band-ring"
     },
     {
         "name": "Alchemy Stone",
-        "description": "Increases base Lifesteal by 5% while suffering from a negative STATUS or BLIGHT Effect."
+        "description": "Increases base Lifesteal by 5% while suffering from a negative STATUS or BLIGHT Effect.",
+        "imgUrl": "alchemy-stone-ring"
     },
     {
         "name": "Alumni Ring",
-        "description": "Increases all Elemental damage dealt by 10%."
+        "description": "Increases all Elemental damage dealt by 10%.",
+        "imgUrl": "alumni-ring-ring"
     },
     {
         "name": "Amber Moonstone",
-        "description": "When the wearer's Health drops below 30%, all incoming damage is reduced by 25% and wearer becomes immune to Temporary Status Effects."
+        "description": "When the wearer's Health drops below 30%, all incoming damage is reduced by 25% and wearer becomes immune to Temporary Status Effects.",
+        "imgUrl": "amber-moonstone-ring"
     },
     {
         "name": "Anastasija's Inspiration",
-        "description": "When receiving healing effects, gain HASTE for 10s."
+        "description": "When receiving healing effects, gain HASTE for 10s.",
+        "imgUrl": "anastasija's-inspiration-ring"
     }
 ]
