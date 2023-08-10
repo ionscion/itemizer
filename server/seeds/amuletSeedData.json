@@ -1,6 +1,7 @@
 [
-    {
-        "name": "Filthy Pendant",
-        "description": "Makes the booty go slap slap slap"
-    }
+  {
+    "name": "Abrasive Whetstone",
+    "description": "When attacking a BLEEDING enemy, Crit Chance is increased by 15% and Crit Damage is increased by 30%.",
+    "imgUrl": "abrasive-whetstone-amulet"
+  }
 ]

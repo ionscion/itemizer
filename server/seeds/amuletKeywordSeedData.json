@@ -1,10 +1,17 @@
 [
   {
-    "amuletName": "Filthy Pendant",
+    "amuletName": "Abrasive Whetstone",
     "associations": [
       {
-        "keyword": "Lifesteal",
-        "damageValue": 40
+        "keyword": "Critical Chance",
+        "damageValue": 15
+      },
+      {
+        "keyword": "Critical Damage",
+        "damageValue": 30
+      },
+      {
+        "keyword": "Bleed"
       }
     ]
   }
