@@ -6,7 +6,7 @@ import ErrorPage from "./error-page";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { ContextProvider } from "./context/context";
 import DataTable from "./components/DataTable";
-import ContentSection from "./components/RingSection";
+import ContentSection from "./components/ContentSection";
 import AboutCard from "./routes/About";
 import SupportCard from "./routes/Support";
 import AdminPanel from "./routes/AdminPanel";

@@ -10,7 +10,7 @@ import acidRingPic from "/images/acid-stone-ring.png"
 import BasicModal from './BasicModal';
 import {useState} from "react";
 
-export default function TitlebarImageList() {
+export default function RingImageList() {
 const { ringApiInfo } = useCustomContext();
 const [open, setOpen] = useState(false);
 const handleOpen = () => setOpen(true);
@@ -21,8 +21,8 @@ console.log(ringApiInfo);
 
 
   return (
-    <ImageList sx={{ width: 500, height: 450 }}>
-      {/* <ImageListItem key="Subheader" cols={2}>
+    <ImageList sx={{ width: 1000, height: 450 }} cols={4}>
+      {/* <ImageListItem key="Subheader" cols={4}>
         <ListSubheader component="div">Rings</ListSubheader>
       </ImageListItem> */}
       {ringApiInfo?.map((item) => (

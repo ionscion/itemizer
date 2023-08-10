@@ -15,6 +15,12 @@ import DiamondIcon from "@mui/icons-material/Diamond";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Switch, FormControlLabel } from "@mui/material";
 import { Outlet, Link } from "react-router-dom";
+// import { createAuth0Client } from '@auth0/auth0-spa-js';
+
+// const auth0 = await createAuth0Client({
+//   domain: 'dev-za4id1uxfphft08n.us.auth0.com',
+//   clientId: 'N7fWtmvKRqB8Ns0gsDpkYTOxZn4VlkiR'
+// });
 
 function ResponsiveAppBar({ props: [darkMode, toggleDarkMode] }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -35,7 +41,8 @@ function ResponsiveAppBar({ props: [darkMode, toggleDarkMode] }) {
     setAnchorElUser(null);
   };
 
-  const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
+
+  const { loginWithRedirect, logout, isAuthenticated,  } = useAuth0();
 
   const handleMenuOptions = (event) => {
     if (event.target.innerText === "Logout") {
@@ -56,9 +63,16 @@ function ResponsiveAppBar({ props: [darkMode, toggleDarkMode] }) {
     // Add more conditions as needed for other menu items
   };
 
-  const handleLogin = () => {
-    loginWithRedirect();
-  };
+  // const handleLogin = async () => {
+  //   await auth0.loginWithRedirect({
+  //     authorizationParams: {
+  //       redirect_uri: 'http://localhost:3000/'
+  //     }
+  //   });
+  //   //logged in. you can get the user profile like this:
+  //   const user = await auth0.getUser();
+  //   console.log(user);
+  // };
   const pages = ["Items", "Builds", "About", "Support", "Admin"];
 
   const settings = isAuthenticated

@@ -9,6 +9,9 @@ const ContextProvider = ({ children }) => {
   const [ringApiInfo, setRingApiInfo] = useState(null);
   const [amuletApiInfo, setAmuletApiInfo] = useState(null);
   const [keywordApiInfo, setKeywordApiInfo] = useState(null);
+  const { user } = useAuth0();
+  const roles = user && user['app.com/roles'];
+  const isSuperUser = roles && roles.includes("Admin");
 
   const getAllRings = async () => {
     try {
@@ -76,6 +79,8 @@ const ContextProvider = ({ children }) => {
     getAllKeywords,
     keywordApiInfo,
     addRing,
+    isSuperUser,
+    user
   };
 
   return <Context.Provider value={valueToShare}>{children}</Context.Provider>;
