@@ -43,7 +43,7 @@ const ContextProvider = ({ children }) => {
     }
   };
 
-  const addRing = async (name, description, keywords) => {
+  const addRing = async (name, description, keywords, imgUrl) => {
     try {
       const response = await fetch("/api/rings", {
         method: "POST",
@@ -54,6 +54,7 @@ const ContextProvider = ({ children }) => {
           name: name,
           description: description,
           keywords: keywords, // Pass the array of keywords directly
+          imgUrl: imgUrl,
         }),
       });
       const data = await response.json();
@@ -63,7 +64,7 @@ const ContextProvider = ({ children }) => {
     }
   };
 
-  const addAmulet = async (name, description, keywords) => {
+  const addAmulet = async (name, description, keywords, imgUrl) => {
     try {
       const response = await fetch("/api/amulets", {
         method: "POST",
@@ -74,6 +75,7 @@ const ContextProvider = ({ children }) => {
           name: name,
           description: description,
           keywords: keywords, // Pass the array of keywords directly
+          imgUrl: imgUrl,
         }),
       });
       const data = await response.json();

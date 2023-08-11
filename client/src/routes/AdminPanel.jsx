@@ -25,7 +25,6 @@ function AdminPanel() {
     e.preventDefault();
     setChoice(e.target.innerText.toLowerCase());
   };
-  
 
   const handleAddItem = (e) => {
     e.preventDefault();
@@ -93,7 +92,8 @@ function AdminPanel() {
     addRing(
       e.target["ring-name"].value,
       e.target["ring-description"].value,
-      keywordsArray
+      keywordsArray,
+      e.target["ring-name"].value.toLowerCase().replace(/\s/g, "-")
     );
     window.location.reload();
   };
@@ -155,7 +155,8 @@ function AdminPanel() {
     addAmulet(
       e.target["ring-name"].value,
       e.target["ring-description"].value,
-      keywordsArray
+      keywordsArray,
+      e.target["ring-name"].value.toLowerCase().replace(/\s/g, "-")
     );
     window.location.reload();
   };

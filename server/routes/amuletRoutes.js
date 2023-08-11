@@ -15,13 +15,14 @@ router.get('/', async (req, res) => {
 );
 
 router.post("/", async (req, res) => {
-    const { name, description, keywords } = req.body;
+    const { name, description, keywords, imgUrl } = req.body;
   
     try {
       // Step 1: Create the ring record
       const amuletData = await Amulet.create({
         name: name,
         description: description,
+        imgUrl: imgUrl,
       });
   
       // Step 2: Create the ring_keyword records for each keyword
