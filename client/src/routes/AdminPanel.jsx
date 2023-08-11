@@ -11,22 +11,32 @@ function AdminPanel() {
   const [newKeyword, setNewKeyword] = useState("");
   const [newDamageValue, setNewDamageValue] = useState("");
   const [showCancel, setShowCancel] = useState(false);
-  const { keywordApiInfo, addRing, addAmulet, isSuperUser } = useCustomContext();
+  const { keywordApiInfo, addRing, addAmulet, isSuperUser } =
+    useCustomContext();
   const [choice, setChoice] = useState("rings");
 
-  useEffect(() => {
-    if (keywordApiInfo) {
-      console.log(keywordApiInfo);
-    }
-  }, [keywordApiInfo]);
+  // useEffect(() => {
+  //   if (keywordApiInfo) {
+  //     console.log(keywordApiInfo);
+  //   }
+  // }, [keywordApiInfo]);
 
   const handleChoice = (e) => {
     e.preventDefault();
     setChoice(e.target.innerText.toLowerCase());
   };
-  console.log(choice);
+  
 
   const handleAddItem = (e) => {
+    e.preventDefault();
+    if (choice === "rings") {
+      handleAddRing(e);
+    } else if (choice === "amulets") {
+      handleAddAmulet(e);
+    }
+  };
+
+  const handleAddRing = (e) => {
     e.preventDefault();
     const keywordsArray = [];
 
@@ -80,23 +90,74 @@ function AdminPanel() {
         },
       });
     }
+    addRing(
+      e.target["ring-name"].value,
+      e.target["ring-description"].value,
+      keywordsArray
+    );
+    window.location.reload();
+  };
 
-    // Now you can make the API request with the filtered array
-    if (choice === "rings") {
-      addRing(
-        e.target["ring-name"].value,
-        e.target["ring-description"].value,
-        keywordsArray
-      );
-    } else if (choice === "amulets") {
-      addAmulet(
-        e.target["ring-name"].value,
-        e.target["ring-description"].value,
-        keywordsArray
-      );
+  const handleAddAmulet = (e) => {
+    e.preventDefault();
+    const keywordsArray = [];
+
+    // Check and add the first keyword
+    if (e.target["keywords"].value !== "") {
+      keywordsArray.push({
+        keyword: e.target["keywords"].value,
+        amulet_keyword: {
+          damageValue: e.target["damage-value"].value,
+        },
+      });
+    } else if (e.target["new-keyword"].value) {
+      keywordsArray.push({
+        keyword: e.target["new-keyword"].value,
+        amulet_keyword: {
+          damageValue: e.target["damage-value"].value,
+        },
+      });
     }
-  
-    // window.location.reload();
+
+    // Check and add the second keyword
+    if (e.target["keywords-2"] && e.target["keywords-2"].value !== "") {
+      keywordsArray.push({
+        keyword: e.target["keywords-2"].value,
+        amulet_keyword: {
+          damageValue: e.target["damage-value-2"]?.value,
+        },
+      });
+    } else if (e.target["new-keyword-2"] && e.target["new-keyword-2"].value) {
+      keywordsArray.push({
+        keyword: e.target["new-keyword-2"].value,
+        amulet_keyword: {
+          damageValue: e.target["damage-value-2"]?.value,
+        },
+      });
+    }
+
+    // Check and add the third keyword
+    if (e.target["keywords-3"] && e.target["keywords-3"].value !== "") {
+      keywordsArray.push({
+        keyword: e.target["keywords-3"].value,
+        amulet_keyword: {
+          damageValue: e.target["damage-value-3"]?.value,
+        },
+      });
+    } else if (e.target["new-keyword-3"] && e.target["new-keyword-3"].value) {
+      keywordsArray.push({
+        keyword: e.target["new-keyword-3"].value,
+        amulet_keyword: {
+          damageValue: e.target["damage-value-3"]?.value,
+        },
+      });
+    }
+    addAmulet(
+      e.target["ring-name"].value,
+      e.target["ring-description"].value,
+      keywordsArray
+    );
+    window.location.reload();
   };
 
   const handleAddMoreKeys = (e) => {
@@ -138,7 +199,9 @@ function AdminPanel() {
             </div>
 
             <div className="flex flex-col items-center mt-5 mb-5">
-              <p>You are currently adding {choice}</p>
+              <p>Please select which type of item to add to the database</p>
+              <p>You are currently adding:</p>
+              <p className="font-bold">{choice.toLocaleUpperCase()}</p>
             </div>
 
             <form
