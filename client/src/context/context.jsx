@@ -63,6 +63,26 @@ const ContextProvider = ({ children }) => {
     }
   };
 
+  const addAmulet = async (name, description, keywords) => {
+    try {
+      const response = await fetch("/api/amulets", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: name,
+          description: description,
+          keywords: keywords, // Pass the array of keywords directly
+        }),
+      });
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getAllRings();
     getAllAmulets();
@@ -79,6 +99,7 @@ const ContextProvider = ({ children }) => {
     getAllKeywords,
     keywordApiInfo,
     addRing,
+    addAmulet,
     isSuperUser,
     user
   };

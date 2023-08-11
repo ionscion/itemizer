@@ -3,11 +3,11 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 function Profile() {
   const { user } = useAuth0();
-  console.log(user);
+//   console.log(user);
 
   const roles = user && user["app.com/roles"];
   const isSuperUser = roles && roles.includes("Admin");
-  console.log(isSuperUser);
+//   console.log(isSuperUser);
   return (
     <>
       {isSuperUser && (
