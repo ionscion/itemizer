@@ -10,6 +10,7 @@ import ContentSection from "./components/ContentSection";
 import AboutCard from "./routes/About";
 import SupportCard from "./routes/Support";
 import AdminPanel from "./routes/AdminPanel";
+import BuildR from "./routes/BuildR";
 
 const router = createBrowserRouter([
   {
@@ -25,7 +26,7 @@ const router = createBrowserRouter([
         // },
       },
       {
-        path: "builds",
+        path: "list",
         element: <DataTable />,
       },
       {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: "support",
         element: <SupportCard />,
+      },
+      {
+        path: "buildR",
+        element: <BuildR />,
       },
       {
         path: "admin",

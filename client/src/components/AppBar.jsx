@@ -73,7 +73,7 @@ function ResponsiveAppBar({ props: [darkMode, toggleDarkMode] }) {
   //   const user = await auth0.getUser();
   //   console.log(user);
   // };
-  const pages = ["Items", "Builds", "About", "Support", "Admin"];
+  const pages = ["Items", "List", "BuildR", "About", "Support", "Admin"];
 
   const settings = isAuthenticated
     ? ["Profile", "Account", "Dashboard", "Logout"]

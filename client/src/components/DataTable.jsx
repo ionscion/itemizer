@@ -90,7 +90,7 @@ export default function DataTable() {
   return (
     <Container maxWidth="lg" className="mx-10 flex flex-col items-center">
       <div className="mt-5">
-        <h1 className="text-center">Builds</h1>
+        <h1 className="text-center">Full Item Details</h1>
       </div>
       <div className="flex flex-col items-center mt-5 mb-5">
         <Stack direction="row" spacing={2}>
