@@ -2,6 +2,7 @@ import React from "react";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
+import SearchBar from "../components/SearchBar";
 
 // BuildR Feature
 // - I want to view a list of all amulets and rings and be able to sort them by keywords
@@ -27,9 +28,7 @@ function BuildR() {
         {/* Column 2: Search Bar */}
         <Grid item xs={12}>
           <div className="flex flex-col m-5">
-            <div>
-              <h1>Search bar</h1>
-            </div>
+           <SearchBar />
           </div>
         </Grid>
 
