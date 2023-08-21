@@ -3,6 +3,7 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import SearchBar from "../components/SearchBar";
+import GeneralDataGrid from "../components/GeneralDataGrid";
 
 // BuildR Feature
 // - I want to view a list of all amulets and rings and be able to sort them by keywords
@@ -28,7 +29,7 @@ function BuildR() {
         {/* Column 2: Search Bar */}
         <Grid item xs={12}>
           <div className="flex flex-col m-5">
-           <SearchBar />
+            <SearchBar />
           </div>
         </Grid>
 
@@ -36,7 +37,7 @@ function BuildR() {
         <Grid item xs={8}>
           <div className="flex flex-col m-5">
             <div>
-              <h1>Data Table</h1>
+              <GeneralDataGrid />
             </div>
           </div>
         </Grid>

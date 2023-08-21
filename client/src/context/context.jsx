@@ -9,9 +9,15 @@ const ContextProvider = ({ children }) => {
   const [ringApiInfo, setRingApiInfo] = useState(null);
   const [amuletApiInfo, setAmuletApiInfo] = useState(null);
   const [keywordApiInfo, setKeywordApiInfo] = useState(null);
+  const [selectedKeyword, setSelectedKeyword] = useState("");
+  const [search, setSearch] = useState("");
   const { user } = useAuth0();
   const roles = user && user['app.com/roles'];
   const isSuperUser = roles && roles.includes("Admin");
+
+  // useEffect(() => {
+  //   console.log('selectedKeyword', selectedKeyword);
+  // }, [selectedKeyword]);
 
   const getAllRings = async () => {
     try {
@@ -38,6 +44,17 @@ const ContextProvider = ({ children }) => {
       const response = await fetch("/api/keywords");
       const data = await response.json();
       setKeywordApiInfo(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getItemsByKeyword = async (keyword) => {
+    try {
+      const response = await fetch(`/api/keywords/name/${keyword}`);
+      const data = await response.json();
+      console.log(data);
+      setSearch(data);
     } catch (error) {
       console.log(error);
     }
@@ -103,7 +120,12 @@ const ContextProvider = ({ children }) => {
     addRing,
     addAmulet,
     isSuperUser,
-    user
+    user,
+    selectedKeyword,
+    setSelectedKeyword,
+    getItemsByKeyword,
+    search,
+    setSearch,
   };
 
   return <Context.Provider value={valueToShare}>{children}</Context.Provider>;
