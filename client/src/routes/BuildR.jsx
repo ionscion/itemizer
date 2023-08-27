@@ -4,6 +4,10 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import SearchBar from "../components/SearchBar";
 import GeneralDataGrid from "../components/GeneralDataGrid";
+import useCustomContext from "../hooks/useCustomContext";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+
 
 // BuildR Feature
 // - I want to view a list of all amulets and rings and be able to sort them by keywords
@@ -21,6 +25,15 @@ import GeneralDataGrid from "../components/GeneralDataGrid";
 //could have data table on left side of screen, and then a component on right side of screen that shows the selected items
 
 function BuildR() {
+  const {
+    selectedKeyword,
+    setSelectedKeyword,
+    getItemsByKeyword,
+    search,
+    setBuilderRings,
+    builderRings,
+  } = useCustomContext();
+
   return (
     <Container maxWidth="lg" className="flex flex-row align-end">
       <Grid container spacing={3}>
@@ -44,27 +57,30 @@ function BuildR() {
 
         {/* Column 1: Ring and Amulet Spots */}
         <Grid item xs={4}>
+          <div className="flex flex-col m-5 justify-center">
+            <div>
+              <Typography>Current Build</Typography>
+            </div>
+            {builderRings.length > 0 && (
+              <div>
+                <Button onClick={() => setBuilderRings([])}>Clear Build</Button>
+              </div>
+            )}
+          </div>
           <div className="flex flex-col m-5">
-            <Paper elevation={3} className="p-4 mb-4">
-              {/* Render your ring or amulet image here */}
-              Ring 1
-            </Paper>
-            <Paper elevation={3} className="p-4 mb-4">
-              {/* Render your ring or amulet image here */}
-              Ring 2
-            </Paper>
-            <Paper elevation={3} className="p-4 mb-4">
-              {/* Render your ring or amulet image here */}
-              Ring 3
-            </Paper>
-            <Paper elevation={3} className="p-4 mb-4">
-              {/* Render your ring or amulet image here */}
-              Ring 4
-            </Paper>
-            <Paper elevation={3} className="p-4 mb-4">
-              {/* Render your ring or amulet image here */}
-              Amulet
-            </Paper>
+            {builderRings?.map((item) => {
+              return (
+                <Paper elevation={3} className="p-4 mb-4" key={item.id}>
+                  {item.name}
+                  <img
+                    src={`/images/${item.imgUrl}.png?w=124&fit=crop&auto=format`}
+                    // srcSet={`${item.imgUrl || acidRingPic}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                    alt={item.name}
+                    loading="lazy"
+                  />
+                </Paper>
+              );
+            })}
           </div>
         </Grid>
 

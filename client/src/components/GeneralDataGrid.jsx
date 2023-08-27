@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
 import useCustomContext from "../hooks/useCustomContext";
 import { useEffect, useState } from "react";
+import ConfirmModal from "./ConfirmModal";
 
 const columns = [
   // { field: "id", headerName: "ID", width: 30 },
@@ -22,19 +23,21 @@ const columns = [
   // },
 ];
 
-// const rows = [
-//   {
-//     id: 1,
-//     name: "Testdata",
-//     description: "afsdfljasfljsdlfl",
-//     keywords: [{ keyword: "test", damageValue: 1 }],
-//   },
-// ];
-
 export default function GeneralDataGrid() {
-  const { selectedKeyword, setSelectedKeyword, getItemsByKeyword, search } =
-    useCustomContext();
+  const {
+    selectedKeyword,
+    setSelectedKeyword,
+    getItemsByKeyword,
+    search,
+    setBuilderRings,
+    getSingleRing,
+  } = useCustomContext();
   const [rows, setRows] = useState([]);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const [id, setId] = useState("");
+  const [selectName, setSelectName] = useState("");
 
   useEffect(() => {
     if (selectedKeyword) {
@@ -52,33 +55,19 @@ export default function GeneralDataGrid() {
       console.log("ringsArray", ringsArray);
 
       const formattedAmulets = amuletsArray?.map((item) => {
-        // Map over the keywords array for each item and create formatted keyword information
-        // const keywordsInfo = item.amulet_keyword.map((keywordItem) => ({
-        //   keyword: keywordItem.keyword,
-        //   damageValue: keywordItem.amulet_keyword.damageValue,
-        // }));
-
         return {
           id: item.id,
           name: item.name,
           description: item.description,
-          // keywords: keywordsInfo,
           type: "Amulet",
         };
       });
 
       const formattedRings = ringsArray?.map((item) => {
-        // Map over the keywords array for each item and create formatted keyword information
-        // const keywordsInfo = item.keywords.map((keywordItem) => ({
-        //   keyword: keywordItem.keyword,
-        //   damageValue: keywordItem.ring_keyword.damageValue,
-        // }));
-
         return {
           id: item.id,
           name: item.name,
           description: item.description,
-          // keywords: keywordsInfo,
           type: "Ring",
         };
       });
@@ -86,6 +75,12 @@ export default function GeneralDataGrid() {
       setRows([...formattedAmulets, ...formattedRings]);
     }
   }, [search]);
+
+  const handleAdd = (id) => {
+    console.log("add");
+    getSingleRing(id);
+    handleClose();
+  };
 
   return (
     <Box sx={{ height: 400, width: "100%" }}>
@@ -103,6 +98,20 @@ export default function GeneralDataGrid() {
         pageSizeOptions={[5]}
         checkboxSelection
         disableRowSelectionOnClick
+        onRowClick={(params) => {
+          // console.log(params.row);
+          setId(params.row.id);
+          setSelectName(params.row.name);
+          handleOpen();
+        }}
+      />
+      <ConfirmModal
+        open={open}
+        handleOpen={handleOpen}
+        handleClose={handleClose}
+        handleAdd={handleAdd}
+        id={id}
+        selectName={selectName}
       />
     </Box>
   );

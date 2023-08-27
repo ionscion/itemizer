@@ -14,6 +14,25 @@ router.get('/', async (req, res) => {
     }
 );
 
+// GET a single ring
+router.get('/:id', async (req, res) => {
+    try {
+        const ringData = await Ring.findByPk(req.params.id, {
+        include: [{ model: Keyword, through: RingKeyword, as: 'keywords' }]
+        });
+
+        if (!ringData) {
+        res.status(404).json({ message: 'No ring found with that id!' });
+        return;
+        }
+
+        res.status(200).json(ringData);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+    }
+);
+
 // ... (other routes)
 
 router.post("/", async (req, res) => {
