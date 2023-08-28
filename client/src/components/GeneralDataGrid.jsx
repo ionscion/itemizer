@@ -31,6 +31,8 @@ export default function GeneralDataGrid() {
     search,
     setBuilderRings,
     getSingleRing,
+    ringCount,
+    setRingCount,
   } = useCustomContext();
   const [rows, setRows] = useState([]);
   const [open, setOpen] = useState(false);
@@ -38,6 +40,7 @@ export default function GeneralDataGrid() {
   const handleClose = () => setOpen(false);
   const [id, setId] = useState("");
   const [selectName, setSelectName] = useState("");
+  const [type, setType] = useState("");
 
   useEffect(() => {
     if (selectedKeyword) {
@@ -76,9 +79,20 @@ export default function GeneralDataGrid() {
     }
   }, [search]);
 
+  //need to add limit to 4 rings
   const handleAdd = (id) => {
     console.log("add");
-    getSingleRing(id);
+    if (type === "Ring") {
+      if (ringCount < 4) {
+        getSingleRing(id);
+        setRingCount((prev) => prev + 1);
+      } else {
+        //TODO add some sort of error message
+        console.log("too many rings");
+      }
+    } else {
+      console.log("amulet");
+    }
     handleClose();
   };
 
@@ -99,9 +113,9 @@ export default function GeneralDataGrid() {
         checkboxSelection
         disableRowSelectionOnClick
         onRowClick={(params) => {
-          // console.log(params.row);
           setId(params.row.id);
           setSelectName(params.row.name);
+          setType(params.row.type);
           handleOpen();
         }}
       />
@@ -112,6 +126,7 @@ export default function GeneralDataGrid() {
         handleAdd={handleAdd}
         id={id}
         selectName={selectName}
+        type={type}
       />
     </Box>
   );

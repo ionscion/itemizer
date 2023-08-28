@@ -16,7 +16,7 @@ const style = {
   p: 4,
 };
 
-export default function ConfirmModal({ open, handleClose, id, handleAdd, selectName }) {
+export default function ConfirmModal({ open, handleClose, id, handleAdd, selectName, type }) {
   return (
     <div>
       <Modal
@@ -30,7 +30,7 @@ export default function ConfirmModal({ open, handleClose, id, handleAdd, selectN
             {selectName}
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Do you wish to add this ring to your build?
+            Do you wish to add this {type} to your build?
           </Typography>
           <Button onClick={handleClose}>Cancel</Button>
           <Button onClick={() => handleAdd(id)}>Add</Button>

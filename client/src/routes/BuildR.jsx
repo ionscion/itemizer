@@ -32,7 +32,16 @@ function BuildR() {
     search,
     setBuilderRings,
     builderRings,
+    ringCount,
+    setRingCount,
+    amuletCount,
+    setAmuletCount,
   } = useCustomContext();
+
+  const handleClearBuild = () =>{
+    setBuilderRings([]);
+    setRingCount(0);
+  };
 
   return (
     <Container maxWidth="lg" className="flex flex-row align-end">
@@ -60,10 +69,13 @@ function BuildR() {
           <div className="flex flex-col m-5 justify-center">
             <div>
               <Typography>Current Build</Typography>
+              <Typography>Rings:{ringCount}/4 </Typography>
+              <Typography>Amulets:{amuletCount}/1 </Typography>
+
             </div>
             {builderRings.length > 0 && (
               <div>
-                <Button onClick={() => setBuilderRings([])}>Clear Build</Button>
+                <Button onClick={handleClearBuild}>Clear Build</Button>
               </div>
             )}
           </div>

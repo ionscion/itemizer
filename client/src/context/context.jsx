@@ -12,13 +12,20 @@ const ContextProvider = ({ children }) => {
   const [selectedKeyword, setSelectedKeyword] = useState("");
   const [search, setSearch] = useState("");
   const [builderRings, setBuilderRings] = useState([]);
+  const [builderAmulets, setBuilderAmulets] = useState([]);
   const { user } = useAuth0();
-  const roles = user && user['app.com/roles'];
+  const roles = user && user["app.com/roles"];
   const isSuperUser = roles && roles.includes("Admin");
+  const [ringCount, setRingCount] = useState(0);
+  const [amuletCount, setAmuletCount] = useState(0);
 
   useEffect(() => {
-    console.log('builderRings', builderRings);
+    console.log("builderRings", builderRings);
   }, [builderRings]);
+
+  useEffect(() => {
+    console.log("ringCount", ringCount);
+  }, [ringCount]);
 
   const getAllRings = async () => {
     try {
@@ -45,6 +52,16 @@ const ContextProvider = ({ children }) => {
       const response = await fetch("/api/amulets");
       const data = await response.json();
       setAmuletApiInfo(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getSingleAmulet = async (id) => {
+    try {
+      const response = await fetch(`/api/amulets/${id}`);
+      const data = await response.json();
+      setBuilderAmulets((prev) => [...prev, data]);
     } catch (error) {
       console.log(error);
     }
@@ -124,6 +141,7 @@ const ContextProvider = ({ children }) => {
     getSingleRing,
     ringApiInfo,
     amuletApiInfo,
+    getSingleAmulet,
     isAuthenticated,
     getIdTokenClaims,
     accessToken,
@@ -139,7 +157,11 @@ const ContextProvider = ({ children }) => {
     search,
     setSearch,
     setBuilderRings,
-    builderRings
+    builderRings,
+    ringCount,
+    setRingCount,
+    amuletCount,
+    setAmuletCount,
   };
 
   return <Context.Provider value={valueToShare}>{children}</Context.Provider>;
