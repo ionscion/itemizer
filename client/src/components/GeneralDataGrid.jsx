@@ -36,6 +36,8 @@ export default function GeneralDataGrid() {
     amuletCount,
     setAmuletCount,
     getSingleAmulet,
+    builderRings,
+    builderAmulets,
   } = useCustomContext();
   const [rows, setRows] = useState([]);
   const [open, setOpen] = useState(false);
@@ -82,24 +84,74 @@ export default function GeneralDataGrid() {
     }
   }, [search]);
 
-  //need to add limit to 4 rings
+  // const handleAdd = (id) => {
+  //   if (type === "Ring") {
+  //     if (builderRings.find((item) => item.id === id)) {
+  //       console.log("already added");
+  //       return;
+  //     } else {
+  //       if (ringCount < 4) {
+  //         getSingleRing(id);
+  //         setRingCount((prev) => prev + 1);
+  //       } else {
+  //         //TODO add some sort of error message
+  //         console.log("too many rings");
+  //       }
+  //     }
+  //   } else {
+  //     if (builderAmulets.find((item) => item.id === id)) {
+  //       console.log("already added");
+  //       return;
+  //     } else {
+  //       if (amuletCount < 1) {
+  //         getSingleAmulet(id);
+  //         setAmuletCount((prev) => prev + 1);
+  //       } else {
+  //         //TODO add some sort of error message
+  //         console.log("too many amulets");
+  //       }
+  //     }
+  //   }
+  //   handleClose();
+  // };
+
   const handleAdd = (id) => {
-    console.log("add");
     if (type === "Ring") {
-      if (ringCount < 4) {
-        getSingleRing(id);
-        setRingCount((prev) => prev + 1);
-      } else {
-        //TODO add some sort of error message
-        console.log("too many rings");
-      }
+      handleRingAdd(id);
     } else {
-      if (amuletCount < 1) {
-        getSingleAmulet(id);
-        setAmuletCount((prev) => prev + 1);
-      }
+      handleAmuletAdd(id);
     }
     handleClose();
+  };
+
+  const handleRingAdd = (id) => {
+    const existingRing = builderRings.find((item) => item.id === id);
+    if (existingRing) {
+      console.log("Ring is already added");
+      return;
+    }
+
+    if (ringCount < 4) {
+      getSingleRing(id);
+      setRingCount((prev) => prev + 1);
+    } else {
+      console.log("Too many rings");
+    }
+  };
+
+  const handleAmuletAdd = (id) => {
+    const existingAmulet = builderAmulets.find((item) => item.id === id);
+    if (existingAmulet) {
+      console.log("Amulet is already added");
+      return;
+    }
+
+    if (amuletCount < 1) {
+      getSingleAmulet(id);
+      setAmuletCount((prev) => prev + 1);
+    } else {
+      console.log("Too many amulets");
+    }
   };
 
   return (

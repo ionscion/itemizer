@@ -271,6 +271,7 @@ function AdminPanel() {
                   type="text"
                   id="damage-value"
                   placeholder="Damage value"
+                  defaultValue={0}
                 />
               </div>
               <div>
@@ -333,6 +334,7 @@ function AdminPanel() {
                       className="mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
                       name={`damage-value-${index + 2}`} // Use a unique name for each additional damage value
                       type="text"
+                      defaultValue={0}
                       value={keyword.damageValue}
                       onChange={(e) => {
                         const updatedKeywords = [...moreKeywords];

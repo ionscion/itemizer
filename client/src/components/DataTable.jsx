@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 
 const columns2 = [
-  { field: "id", headerName: "ID", width: 70 },
+  // { field: "id", headerName: "ID", width: 70 },
   { field: "name", headerName: "Name", width: 130 },
   { field: "description", headerName: "Description", width: 500 },
   {
