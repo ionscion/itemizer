@@ -162,6 +162,8 @@ const ContextProvider = ({ children }) => {
     setRingCount,
     amuletCount,
     setAmuletCount,
+    builderAmulets,
+    setBuilderAmulets,
   };
 
   return <Context.Provider value={valueToShare}>{children}</Context.Provider>;

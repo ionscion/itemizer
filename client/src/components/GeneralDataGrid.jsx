@@ -33,6 +33,9 @@ export default function GeneralDataGrid() {
     getSingleRing,
     ringCount,
     setRingCount,
+    amuletCount,
+    setAmuletCount,
+    getSingleAmulet,
   } = useCustomContext();
   const [rows, setRows] = useState([]);
   const [open, setOpen] = useState(false);
@@ -91,7 +94,10 @@ export default function GeneralDataGrid() {
         console.log("too many rings");
       }
     } else {
-      console.log("amulet");
+      if (amuletCount < 1) {
+        getSingleAmulet(id);
+        setAmuletCount((prev) => prev + 1);
+      }
     }
     handleClose();
   };

@@ -8,7 +8,6 @@ import useCustomContext from "../hooks/useCustomContext";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-
 // BuildR Feature
 // - I want to view a list of all amulets and rings and be able to sort them by keywords
 // - Add up to 4 rings
@@ -36,10 +35,14 @@ function BuildR() {
     setRingCount,
     amuletCount,
     setAmuletCount,
+    builderAmulets,
+    setBuilderAmulets,
   } = useCustomContext();
 
-  const handleClearBuild = () =>{
+  const handleClearBuild = () => {
     setBuilderRings([]);
+    setBuilderAmulets([]);
+    setAmuletCount(0);
     setRingCount(0);
   };
 
@@ -56,7 +59,7 @@ function BuildR() {
         </Grid>
 
         {/* Column 3: Data Table */}
-        <Grid item xs={8}>
+        <Grid item xs={12}>
           <div className="flex flex-col m-5">
             <div>
               <GeneralDataGrid />
@@ -64,39 +67,7 @@ function BuildR() {
           </div>
         </Grid>
 
-        {/* Column 1: Ring and Amulet Spots */}
-        <Grid item xs={4}>
-          <div className="flex flex-col m-5 justify-center">
-            <div>
-              <Typography>Current Build</Typography>
-              <Typography>Rings:{ringCount}/4 </Typography>
-              <Typography>Amulets:{amuletCount}/1 </Typography>
-
-            </div>
-            {builderRings.length > 0 && (
-              <div>
-                <Button onClick={handleClearBuild}>Clear Build</Button>
-              </div>
-            )}
-          </div>
-          <div className="flex flex-col m-5">
-            {builderRings?.map((item) => {
-              return (
-                <Paper elevation={3} className="p-4 mb-4" key={item.id}>
-                  {item.name}
-                  <img
-                    src={`/images/${item.imgUrl}.png?w=124&fit=crop&auto=format`}
-                    // srcSet={`${item.imgUrl || acidRingPic}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                    alt={item.name}
-                    loading="lazy"
-                  />
-                </Paper>
-              );
-            })}
-          </div>
-        </Grid>
-
-        <Grid item xs={12}>
+        <Grid item xs={8}>
           <div className="flex flex-col m-5">
             <Paper elevation={3} className="p-4 mb-4">
               {/* Render your ring or amulet image here */}
@@ -104,6 +75,56 @@ function BuildR() {
             </Paper>
           </div>
         </Grid>
+
+        {/* Column 1: Ring and Amulet Spots */}
+        <Grid item xs={4}>
+          <div className="flex flex-col m-5">
+            <div className="flex flex-row m-5 justify-center">
+              <div>
+                <Typography>Current Build</Typography>
+                <Typography>Rings:{ringCount}/4 </Typography>
+                <Typography>Amulets:{amuletCount}/1 </Typography>
+              </div>
+              {(builderRings.length > 0 || builderAmulets.length >0 )&& (
+                  <div>
+                    <Button onClick={handleClearBuild}>Clear Build</Button>
+                  </div>
+                )}
+            </div>
+            <div className="flex flex-col m-5">
+              {builderRings?.map((item) => {
+                return (
+                  <Paper elevation={3} className="p-4 m-4" key={item.id}>
+                    {item.name}
+                    <img
+                      src={`/images/${item.imgUrl}.png?w=124&fit=crop&auto=format`}
+                      // srcSet={`${item.imgUrl || acidRingPic}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                      alt={item.name}
+                      loading="lazy"
+                    />
+                  </Paper>
+                );
+              })}
+            </div>
+            <div className="flex flex-col m-5">
+              {builderAmulets?.map((item) => {
+                return (
+                  <Paper elevation={3} className="p-4 mb-4" key={item.id}>
+                    {item.name}
+                    <img
+                      src={`/images/${item.imgUrl}.png?w=124&fit=crop&auto=format`}
+                      // srcSet={`${item.imgUrl || acidRingPic}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                      alt={item.name}
+                      loading="lazy"
+                    />
+                  </Paper>
+                );
+              })}
+            </div>
+          </div>
+        </Grid>
+
+       
       </Grid>
     </Container>
   );
