@@ -46,6 +46,10 @@ function BuildR() {
     setRingCount(0);
   };
 
+  const handleSaveBuild = () => {
+    console.log("save build");
+  };
+
   return (
     <Container maxWidth="lg" className="flex flex-row align-end">
       <Grid container spacing={3}>
@@ -86,9 +90,14 @@ function BuildR() {
                 <Typography>Amulets:{amuletCount}/1 </Typography>
               </div>
               {(builderRings.length > 0 || builderAmulets.length >0 )&& (
+                <>
                   <div>
                     <Button onClick={handleClearBuild}>Clear Build</Button>
                   </div>
+                  <div>
+                    <Button onClick={handleSaveBuild}>Save Build</Button>
+                  </div>
+                  </>
                 )}
             </div>
             <div className="flex flex-col m-5">
