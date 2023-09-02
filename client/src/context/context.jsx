@@ -1,10 +1,13 @@
 import { createContext, useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import jwt_decode from "jwt-decode";
 
 const Context = createContext();
 
 const ContextProvider = ({ children }) => {
   const { isAuthenticated, getIdTokenClaims } = useAuth0();
+  const [user_id, setUser_id] = useState(null);
+  const [userToken, setUserToken] = useState(null); 
   const [accessToken, setAccessToken] = useState(null);
   const [ringApiInfo, setRingApiInfo] = useState(null);
   const [amuletApiInfo, setAmuletApiInfo] = useState(null);
@@ -19,13 +22,40 @@ const ContextProvider = ({ children }) => {
   const [ringCount, setRingCount] = useState(0);
   const [amuletCount, setAmuletCount] = useState(0);
 
-  useEffect(() => {
-    console.log("builderRings", builderRings);
-  }, [builderRings]);
+  // useEffect(() => {
+  //   console.log("builderRings", builderRings);
+  // }, [builderRings]);
+
+  // useEffect(() => {
+  //   console.log("ringCount", ringCount);
+  // }, [ringCount]);
 
   useEffect(() => {
-    console.log("ringCount", ringCount);
-  }, [ringCount]);
+    if (isAuthenticated) {
+      getToken();
+    }
+  }, [getIdTokenClaims, isAuthenticated]);
+
+  useEffect(() => {
+    if (accessToken) {
+      const userToken = jwt_decode(accessToken);
+      const user_id = jwt_decode(accessToken).sub.slice(6);
+      setUser_id(user_id);
+      setUserToken(userToken);
+    }
+  }, [accessToken]);
+
+  useEffect(() => {
+    if (user_id || userToken) {
+      console.log("user_id", user_id);
+      console.log("userToken", userToken);
+    }
+  }, [user_id, userToken]);
+
+  const getToken = async () => {
+    const token = await getIdTokenClaims();
+    setAccessToken(token.__raw);
+  };
 
   const getAllRings = async () => {
     try {
