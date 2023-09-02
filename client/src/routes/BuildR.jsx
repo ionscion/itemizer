@@ -37,6 +37,9 @@ function BuildR() {
     setAmuletCount,
     builderAmulets,
     setBuilderAmulets,
+    keywordApiInfo,
+    ringApiInfo,
+    amuletApiInfo,
   } = useCustomContext();
 
   const handleClearBuild = () => {
@@ -50,6 +53,18 @@ function BuildR() {
     console.log("save build");
   };
 
+  const handleKeywordChange = (event, value) => {
+    setSelectedKeyword(value); // Update the selected keyword when an option is selected
+  };
+
+  const handleRingChange = (event, value) => {
+    console.log("ring change", value);
+  };
+
+  const handleAmuletChange = (event, value) => {
+    console.log("amulet change", value);
+  };
+
   return (
     <Container maxWidth="lg" className="flex flex-row align-end">
       <Grid container spacing={3}>
@@ -57,8 +72,25 @@ function BuildR() {
 
         {/* Column 2: Search Bar */}
         <Grid item xs={12}>
-          <div className="flex flex-col m-5">
-            <SearchBar />
+          <div className="flex m-5 space-x-4">
+            <SearchBar
+              label="Search Keywords"
+              options={keywordApiInfo?.map((option) => option.keyword)}
+              onChange={handleKeywordChange}
+              apiInfo={keywordApiInfo}
+            />
+            <SearchBar
+              label="Search Rings"
+              options={ringApiInfo?.map((option) => option.name)}
+              onChange={handleRingChange}
+              apiInfo={ringApiInfo}
+            />
+            <SearchBar
+              label="Search Amulets"
+              options={amuletApiInfo?.map((option) => option.name)}
+              onChange={handleAmuletChange}
+              apiInfo={amuletApiInfo}
+            />
           </div>
         </Grid>
 
@@ -89,7 +121,7 @@ function BuildR() {
                 <Typography>Rings:{ringCount}/4 </Typography>
                 <Typography>Amulets:{amuletCount}/1 </Typography>
               </div>
-              {(builderRings.length > 0 || builderAmulets.length >0 )&& (
+              {(builderRings.length > 0 || builderAmulets.length > 0) && (
                 <>
                   <div>
                     <Button onClick={handleClearBuild}>Clear Build</Button>
@@ -97,8 +129,8 @@ function BuildR() {
                   <div>
                     <Button onClick={handleSaveBuild}>Save Build</Button>
                   </div>
-                  </>
-                )}
+                </>
+              )}
             </div>
             <div className="flex flex-col m-5">
               {builderRings?.map((item) => {
@@ -132,8 +164,6 @@ function BuildR() {
             </div>
           </div>
         </Grid>
-
-       
       </Grid>
     </Container>
   );

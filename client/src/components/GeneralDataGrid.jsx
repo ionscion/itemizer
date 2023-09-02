@@ -84,37 +84,6 @@ export default function GeneralDataGrid() {
     }
   }, [search]);
 
-  // const handleAdd = (id) => {
-  //   if (type === "Ring") {
-  //     if (builderRings.find((item) => item.id === id)) {
-  //       console.log("already added");
-  //       return;
-  //     } else {
-  //       if (ringCount < 4) {
-  //         getSingleRing(id);
-  //         setRingCount((prev) => prev + 1);
-  //       } else {
-  //         //TODO add some sort of error message
-  //         console.log("too many rings");
-  //       }
-  //     }
-  //   } else {
-  //     if (builderAmulets.find((item) => item.id === id)) {
-  //       console.log("already added");
-  //       return;
-  //     } else {
-  //       if (amuletCount < 1) {
-  //         getSingleAmulet(id);
-  //         setAmuletCount((prev) => prev + 1);
-  //       } else {
-  //         //TODO add some sort of error message
-  //         console.log("too many amulets");
-  //       }
-  //     }
-  //   }
-  //   handleClose();
-  // };
-
   const handleAdd = (id) => {
     if (type === "Ring") {
       handleRingAdd(id);
