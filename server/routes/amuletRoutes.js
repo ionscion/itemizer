@@ -25,6 +25,25 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+// GET one amulet by its name
+router.get("/name/:name", async (req, res) => {
+  try {
+    const amuletData = await Amulet.findOne({
+      where: { name: req.params.name },
+      include: [{ model: Keyword, through: AmuletKeyword, as: "keywords" }],
+    });
+
+    if (!amuletData) {
+      res.status(404).json({ message: "No amulet found with that name!" });
+      return;
+    }
+
+    res.status(200).json(amuletData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 router.post("/", async (req, res) => {
   const { name, description, keywords, imgUrl } = req.body;
 

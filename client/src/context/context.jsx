@@ -13,6 +13,8 @@ const ContextProvider = ({ children }) => {
   const [amuletApiInfo, setAmuletApiInfo] = useState(null);
   const [keywordApiInfo, setKeywordApiInfo] = useState(null);
   const [selectedKeyword, setSelectedKeyword] = useState("");
+  const [selectedRing, setSelectedRing] = useState("");
+  const [selectedAmulet, setSelectedAmulet] = useState("");
   const [search, setSearch] = useState("");
   const [builderRings, setBuilderRings] = useState([]);
   const [builderAmulets, setBuilderAmulets] = useState([]);
@@ -21,14 +23,19 @@ const ContextProvider = ({ children }) => {
   const isSuperUser = roles && roles.includes("Admin");
   const [ringCount, setRingCount] = useState(0);
   const [amuletCount, setAmuletCount] = useState(0);
+  const [ringSearch, setRingSearch] = useState("");
+  const [amuletSearch, setAmuletSearch] = useState("");
+  const [rows, setRows] = useState([]);
+
 
   useEffect(() => {
     console.log("builderRings", builderRings);
   }, [builderRings]);
 
   // useEffect(() => {
-  //   console.log("ringCount", ringCount);
-  // }, [ringCount]);
+  //   console.log("selectedRing", selectedRing);
+  //   console.log("selectedAmulet", selectedAmulet);
+  // }, [selectedAmulet, selectedRing]);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -77,6 +84,17 @@ const ContextProvider = ({ children }) => {
     }
   };
 
+  const getRingByName = async (name) => {
+    try {
+      const response = await fetch(`/api/rings/name/${name}`);
+      const data = await response.json();
+      console.log(data);
+      setRingSearch(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getAllAmulets = async () => {
     try {
       const response = await fetch("/api/amulets");
@@ -92,6 +110,17 @@ const ContextProvider = ({ children }) => {
       const response = await fetch(`/api/amulets/${id}`);
       const data = await response.json();
       setBuilderAmulets((prev) => [...prev, data]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getAmuletByName = async (name) => {
+    try {
+      const response = await fetch(`/api/amulets/name/${name}`);
+      const data = await response.json();
+      console.log(data);
+      setAmuletSearch(data);
     } catch (error) {
       console.log(error);
     }
@@ -160,6 +189,8 @@ const ContextProvider = ({ children }) => {
     }
   };
 
+  //TODO: Add Rows State here from datagrid to pass to buildR
+
   useEffect(() => {
     getAllRings();
     getAllAmulets();
@@ -183,6 +214,10 @@ const ContextProvider = ({ children }) => {
     user,
     selectedKeyword,
     setSelectedKeyword,
+    selectedRing,
+    setSelectedRing,
+    selectedAmulet,
+    setSelectedAmulet,
     getItemsByKeyword,
     search,
     setSearch,
@@ -194,6 +229,13 @@ const ContextProvider = ({ children }) => {
     setAmuletCount,
     builderAmulets,
     setBuilderAmulets,
+    getRingByName,
+    getAmuletByName,
+    amuletSearch,
+    ringSearch,
+    setAmuletSearch,
+    rows,
+    setRows,
   };
 
   return <Context.Provider value={valueToShare}>{children}</Context.Provider>;

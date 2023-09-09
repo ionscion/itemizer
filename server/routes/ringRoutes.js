@@ -33,6 +33,26 @@ router.get('/:id', async (req, res) => {
     }
 );
 
+router.get('/name/:name', async (req, res) => {
+    try {
+        const ringData = await Ring.findOne({
+        where: { name: req.params.name },
+        include: [{ model: Keyword, through: RingKeyword, as: 'keywords' }]
+        });
+
+        if (!ringData) {
+        res.status(404).json({ message: 'No ring found with that name!' });
+        return;
+        }
+
+        res.status(200).json(ringData);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+    }
+);
+
+
 // ... (other routes)
 
 router.post("/", async (req, res) => {

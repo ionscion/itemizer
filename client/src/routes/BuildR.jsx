@@ -21,12 +21,13 @@ import Typography from "@mui/material/Typography";
 // - Clicking on ring/amulet transfers or adds to the right spot
 
 //could have a search bar on top of the data table that filters the data table based on the search result
-//could have data table on left side of screen, and then a component on right side of screen that shows the selected items
 
 function BuildR() {
   const {
     selectedKeyword,
     setSelectedKeyword,
+    setSelectedRing,
+    setSelectedAmulet,
     getItemsByKeyword,
     search,
     setBuilderRings,
@@ -40,6 +41,7 @@ function BuildR() {
     keywordApiInfo,
     ringApiInfo,
     amuletApiInfo,
+    setRows,
   } = useCustomContext();
 
   const handleClearBuild = () => {
@@ -53,16 +55,26 @@ function BuildR() {
     console.log("save build");
   };
 
+  //These 3 set the respective items to State which passes to the General Data grid
   const handleKeywordChange = (event, value) => {
-    setSelectedKeyword(value); // Update the selected keyword when an option is selected
+    setRows([]);
+    setSelectedAmulet("");
+    setSelectedRing("");
+    setSelectedKeyword(value);
   };
 
   const handleRingChange = (event, value) => {
-    console.log("ring change", value);
+    setRows([]);
+    setSelectedAmulet("");
+    setSelectedKeyword("");
+    setSelectedRing(value);
   };
 
   const handleAmuletChange = (event, value) => {
-    console.log("amulet change", value);
+    setRows([]);
+    setSelectedKeyword("");
+    setSelectedRing("");
+    setSelectedAmulet(value);
   };
 
   return (
@@ -151,12 +163,12 @@ function BuildR() {
                 </>
               )}
             </div>
-                  
+
             {/* Nested Grid for Ring Images */}
             <Grid container spacing={2}>
               {builderRings?.map((item) => (
                 <Grid item xs={6} key={item.id}>
-                  <Paper elevation={3} className="p-4 m-4" >
+                  <Paper elevation={3} className="p-4 m-4">
                     <p className="text-sm">{item.name}</p>
                     <img
                       src={`/images/${item.imgUrl}.png?w=124&fit=crop&auto=format`}
@@ -167,8 +179,9 @@ function BuildR() {
                 </Grid>
               ))}
             </Grid>
-
+            {builderAmulets?.length > 0 && 
             <div className="flex flex-col m-5">
+              <Typography>Amulet</Typography>
               {builderAmulets?.map((item) => {
                 return (
                   <Paper elevation={3} className="p-4 mb-4" key={item.id}>
@@ -182,6 +195,7 @@ function BuildR() {
                 );
               })}
             </div>
+            }
           </div>
         </Grid>
       </Grid>

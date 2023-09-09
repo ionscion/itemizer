@@ -27,6 +27,8 @@ export default function GeneralDataGrid() {
   const {
     selectedKeyword,
     setSelectedKeyword,
+    selectedRing,
+    selectedAmulet,
     getItemsByKeyword,
     search,
     setBuilderRings,
@@ -38,8 +40,15 @@ export default function GeneralDataGrid() {
     getSingleAmulet,
     builderRings,
     builderAmulets,
+    getRingByName,
+    getAmuletByName,
+    amuletSearch,
+    ringSearch,
+    setAmuletSearch,
+    rows,
+    setRows,
   } = useCustomContext();
-  const [rows, setRows] = useState([]);
+
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -51,12 +60,16 @@ export default function GeneralDataGrid() {
     if (selectedKeyword) {
       getItemsByKeyword(selectedKeyword);
     }
-  }, [selectedKeyword]);
+    if (selectedRing) {
+      getRingByName(selectedRing);
+    }
+    if (selectedAmulet) {
+      getAmuletByName(selectedAmulet);
+    }
+  }, [selectedKeyword, selectedRing, selectedAmulet]);
 
   useEffect(() => {
     if (search) {
-      // console.log("searcharray", search);
-
       const amuletsArray = Object.values(search.amulets);
       const ringsArray = Object.values(search.rings);
       // console.log("amuletsArray", amuletsArray);
@@ -83,6 +96,34 @@ export default function GeneralDataGrid() {
       setRows([...formattedAmulets, ...formattedRings]);
     }
   }, [search]);
+
+  useEffect(() => {
+    if (amuletSearch) {
+      const formattedAmulet = {
+        id: amuletSearch.id,
+        name: amuletSearch.name,
+        description: amuletSearch.description,
+        type: "Amulet",
+      };
+
+      // Update the rows state with the new amulet
+      setRows([...rows, formattedAmulet]);
+    }
+  }, [amuletSearch]);
+
+  useEffect(() => {
+    if (ringSearch) {
+      const formattedRing = {
+        id: ringSearch.id,
+        name: ringSearch.name,
+        description: ringSearch.description,
+        type: "Ring",
+      };
+
+      // Update the rows state with the new amulet
+      setRows([...rows, formattedRing]);
+    }
+  }, [ringSearch]);
 
   const handleAdd = (id) => {
     if (type === "Ring") {
