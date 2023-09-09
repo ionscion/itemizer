@@ -42,6 +42,7 @@ function BuildR() {
     ringApiInfo,
     amuletApiInfo,
     setRows,
+    saveBuild
   } = useCustomContext();
 
   const handleClearBuild = () => {
@@ -52,7 +53,11 @@ function BuildR() {
   };
 
   const handleSaveBuild = () => {
-    console.log("save build");
+    const ringIds = builderRings?.map((item) => item.id);
+    const amuletId = builderAmulets?.[0].id;  
+    console.log("ringIds", ringIds);
+    console.log("amuletId", amuletId);
+    saveBuild(ringIds, amuletId);
   };
 
   //These 3 set the respective items to State which passes to the General Data grid

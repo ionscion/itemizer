@@ -7,7 +7,7 @@ const Context = createContext();
 const ContextProvider = ({ children }) => {
   const { isAuthenticated, getIdTokenClaims } = useAuth0();
   const [user_id, setUser_id] = useState(null);
-  const [userToken, setUserToken] = useState(null); 
+  const [userToken, setUserToken] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
   const [ringApiInfo, setRingApiInfo] = useState(null);
   const [amuletApiInfo, setAmuletApiInfo] = useState(null);
@@ -27,10 +27,10 @@ const ContextProvider = ({ children }) => {
   const [amuletSearch, setAmuletSearch] = useState("");
   const [rows, setRows] = useState([]);
 
-
-  useEffect(() => {
-    console.log("builderRings", builderRings);
-  }, [builderRings]);
+  // useEffect(() => {
+  //   console.log("builderRings", builderRings);
+  //   console.log("builderAmulets", builderAmulets);
+  // }, [builderRings, builderAmulets]);
 
   // useEffect(() => {
   //   console.log("selectedRing", selectedRing);
@@ -88,7 +88,6 @@ const ContextProvider = ({ children }) => {
     try {
       const response = await fetch(`/api/rings/name/${name}`);
       const data = await response.json();
-      console.log(data);
       setRingSearch(data);
     } catch (error) {
       console.log(error);
@@ -119,7 +118,6 @@ const ContextProvider = ({ children }) => {
     try {
       const response = await fetch(`/api/amulets/name/${name}`);
       const data = await response.json();
-      console.log(data);
       setAmuletSearch(data);
     } catch (error) {
       console.log(error);
@@ -140,7 +138,6 @@ const ContextProvider = ({ children }) => {
     try {
       const response = await fetch(`/api/keywords/name/${keyword}`);
       const data = await response.json();
-      // console.log(data);
       setSearch(data);
     } catch (error) {
       console.log(error);
@@ -189,7 +186,30 @@ const ContextProvider = ({ children }) => {
     }
   };
 
-  //TODO: Add Rows State here from datagrid to pass to buildR
+  //save user builds
+  //TODO: add build name and description
+  //TODO: create error message if user is not logged in or hide the save button until they are logged in
+  const saveBuild = async (ringIds, amuletId) => {
+    try {
+      const response = await fetch("/api/userBuilds", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: user_id,
+          build_name: "test",
+          build_description: "test",
+          build_rings: ringIds,
+          build_amulet: amuletId,
+        }),
+      });
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     getAllRings();
@@ -236,6 +256,7 @@ const ContextProvider = ({ children }) => {
     setAmuletSearch,
     rows,
     setRows,
+    saveBuild,
   };
 
   return <Context.Provider value={valueToShare}>{children}</Context.Provider>;
