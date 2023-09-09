@@ -151,8 +151,7 @@ function BuildR() {
                 </>
               )}
             </div>
-
-                {/* // style={{height: "200px", width: "200px"}} */}
+                  
             {/* Nested Grid for Ring Images */}
             <Grid container spacing={2}>
               {builderRings?.map((item) => (
