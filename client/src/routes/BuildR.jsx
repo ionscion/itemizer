@@ -106,8 +106,27 @@ function BuildR() {
         <Grid item xs={8}>
           <div className="flex flex-col m-5">
             <Paper elevation={3} className="p-4 mb-4">
-              {/* Render your ring or amulet image here */}
-              Printout of current stats
+              <Typography>Current Stats</Typography>
+              {builderRings?.length > 0 && (
+                <div>
+                  <Typography>Ring Stats</Typography>
+                  {builderRings?.map((item) => (
+                    <p key={item.id}>
+                      <span>{item.name}:</span> {item.description}
+                    </p>
+                  ))}
+                </div>
+              )}
+              {builderAmulets?.length > 0 && (
+                <div>
+                  <Typography>Amulet Stats</Typography>
+                  {builderAmulets?.map((item) => (
+                    <p key={item.id}>
+                      <span>{item.name}:</span> {item.description}
+                    </p>
+                  ))}
+                </div>
+              )}
             </Paper>
           </div>
         </Grid>
@@ -132,21 +151,24 @@ function BuildR() {
                 </>
               )}
             </div>
-            <div className="flex flex-col m-5">
-              {builderRings?.map((item) => {
-                return (
-                  <Paper elevation={3} className="p-4 m-4" key={item.id}>
-                    {item.name}
+
+                {/* // style={{height: "200px", width: "200px"}} */}
+            {/* Nested Grid for Ring Images */}
+            <Grid container spacing={2}>
+              {builderRings?.map((item) => (
+                <Grid item xs={6} key={item.id}>
+                  <Paper elevation={3} className="p-4 m-4" >
+                    <p className="text-sm">{item.name}</p>
                     <img
                       src={`/images/${item.imgUrl}.png?w=124&fit=crop&auto=format`}
-                      // srcSet={`${item.imgUrl || acidRingPic}?w=248&fit=crop&auto=format&dpr=2 2x`}
                       alt={item.name}
                       loading="lazy"
                     />
                   </Paper>
-                );
-              })}
-            </div>
+                </Grid>
+              ))}
+            </Grid>
+
             <div className="flex flex-col m-5">
               {builderAmulets?.map((item) => {
                 return (
@@ -154,7 +176,6 @@ function BuildR() {
                     {item.name}
                     <img
                       src={`/images/${item.imgUrl}.png?w=124&fit=crop&auto=format`}
-                      // srcSet={`${item.imgUrl || acidRingPic}?w=248&fit=crop&auto=format&dpr=2 2x`}
                       alt={item.name}
                       loading="lazy"
                     />

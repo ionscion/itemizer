@@ -55,12 +55,12 @@ export default function GeneralDataGrid() {
 
   useEffect(() => {
     if (search) {
-      console.log("searcharray", search);
+      // console.log("searcharray", search);
 
       const amuletsArray = Object.values(search.amulets);
       const ringsArray = Object.values(search.rings);
-      console.log("amuletsArray", amuletsArray);
-      console.log("ringsArray", ringsArray);
+      // console.log("amuletsArray", amuletsArray);
+      // console.log("ringsArray", ringsArray);
 
       const formattedAmulets = amuletsArray?.map((item) => {
         return {

@@ -22,9 +22,9 @@ const ContextProvider = ({ children }) => {
   const [ringCount, setRingCount] = useState(0);
   const [amuletCount, setAmuletCount] = useState(0);
 
-  // useEffect(() => {
-  //   console.log("builderRings", builderRings);
-  // }, [builderRings]);
+  useEffect(() => {
+    console.log("builderRings", builderRings);
+  }, [builderRings]);
 
   // useEffect(() => {
   //   console.log("ringCount", ringCount);
@@ -111,7 +111,7 @@ const ContextProvider = ({ children }) => {
     try {
       const response = await fetch(`/api/keywords/name/${keyword}`);
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       setSearch(data);
     } catch (error) {
       console.log(error);
