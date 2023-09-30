@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import TextField from "@mui/material/TextField";
 
 const style = {
   position: "absolute",
@@ -15,10 +16,9 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-  //TODO: add build name and description
-  //TODO: create error message if user is not logged in or hide the save button until they are logged in
 
-export default function SaveBuildModal({ open, handleClose, handleSaveBuild}) {
+
+export default function SaveBuildModal({ open, handleClose, handleSaveBuild }) {
   return (
     <div>
       <Modal
@@ -29,12 +29,36 @@ export default function SaveBuildModal({ open, handleClose, handleSaveBuild}) {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
+            Save Your Build!
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Do you wish to save your build?
-          </Typography>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={() => handleSaveBuild()}>Save Build</Button>
+
+          <TextField
+            required
+            id="buildName"
+            label="Required"
+            // defaultValue="Build Name"
+            placeholder="Build Name"
+          />
+          <TextField
+            required
+            id="desc"
+            label="Required"
+            // defaultValue="Build Description"
+            placeholder="Build Description"
+          />
+          <div className="flex">
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button
+              onClick={() =>
+                handleSaveBuild(
+                  document.getElementById("buildName").value,
+                  document.getElementById("desc").value
+                )
+              }
+            >
+              Save Build
+            </Button>
+          </div>
         </Box>
       </Modal>
     </div>

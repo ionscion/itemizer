@@ -44,7 +44,7 @@ function BuildR() {
     ringApiInfo,
     amuletApiInfo,
     setRows,
-    saveBuild
+    saveBuild,
   } = useCustomContext();
 
   const [open, setOpen] = useState(false);
@@ -58,11 +58,12 @@ function BuildR() {
     setRingCount(0);
   };
 
-  const handleSaveBuild = () => {
+  const handleSaveBuild = (name, desc) => {
     handleClose();
     const ringIds = builderRings?.map((item) => item.id);
-    const amuletId = builderAmulets && builderAmulets.length > 0 ? builderAmulets[0].id : null;
-    saveBuild(ringIds, amuletId);
+    const amuletId =
+      builderAmulets && builderAmulets.length > 0 ? builderAmulets[0].id : null;
+    saveBuild(ringIds, amuletId, name, desc);
   };
 
   //These 3 set the respective items to State which passes to the General Data grid
@@ -168,12 +169,14 @@ function BuildR() {
                     <Button onClick={handleClearBuild}>Clear Build</Button>
                   </div>
                   <div>
-                    <Button onClick={()=> handleOpen()}>Save Build</Button>
+                    <Button onClick={() => handleOpen()}>Save Build</Button>
                   </div>
                 </>
               )}
             </div>
-
+            {
+              //TODO: create error message if user is not logged in or hide the save button until they are logged in
+            }
             {/* Nested Grid for Ring Images */}
             <Grid container spacing={2}>
               {builderRings?.map((item) => (
@@ -189,27 +192,31 @@ function BuildR() {
                 </Grid>
               ))}
             </Grid>
-            {builderAmulets?.length > 0 && 
-            <div className="flex flex-col m-5">
-              <Typography>Amulet</Typography>
-              {builderAmulets?.map((item) => {
-                return (
-                  <Paper elevation={3} className="p-4 mb-4" key={item.id}>
-                    {item.name}
-                    <img
-                      src={`/images/${item.imgUrl}.png?w=124&fit=crop&auto=format`}
-                      alt={item.name}
-                      loading="lazy"
-                    />
-                  </Paper>
-                );
-              })}
-            </div>
-            }
+            {builderAmulets?.length > 0 && (
+              <div className="flex flex-col m-5">
+                <Typography>Amulet</Typography>
+                {builderAmulets?.map((item) => {
+                  return (
+                    <Paper elevation={3} className="p-4 mb-4" key={item.id}>
+                      {item.name}
+                      <img
+                        src={`/images/${item.imgUrl}.png?w=124&fit=crop&auto=format`}
+                        alt={item.name}
+                        loading="lazy"
+                      />
+                    </Paper>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </Grid>
       </Grid>
-      <SaveBuildModal open={open} handleClose={handleClose} handleSaveBuild={handleSaveBuild}/>
+      <SaveBuildModal
+        open={open}
+        handleClose={handleClose}
+        handleSaveBuild={handleSaveBuild}
+      />
     </Container>
   );
 }

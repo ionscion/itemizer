@@ -187,7 +187,7 @@ const ContextProvider = ({ children }) => {
   };
 
   //save user builds
-  const saveBuild = async (ringIds, amuletId) => {
+  const saveBuild = async (ringIds, amuletId, name, desc) => {
     try {
       const response = await fetch("/api/userBuilds", {
         method: "POST",
@@ -196,8 +196,8 @@ const ContextProvider = ({ children }) => {
         },
         body: JSON.stringify({
           user_id: user_id,
-          build_name: "test",
-          build_description: "test",
+          build_name: name,
+          build_description: desc,
           build_rings: ringIds,
           build_amulet: amuletId,
         }),
