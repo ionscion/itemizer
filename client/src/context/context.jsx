@@ -187,8 +187,6 @@ const ContextProvider = ({ children }) => {
   };
 
   //save user builds
-  //TODO: add build name and description
-  //TODO: create error message if user is not logged in or hide the save button until they are logged in
   const saveBuild = async (ringIds, amuletId) => {
     try {
       const response = await fetch("/api/userBuilds", {

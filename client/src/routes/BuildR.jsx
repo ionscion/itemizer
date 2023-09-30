@@ -7,6 +7,8 @@ import GeneralDataGrid from "../components/GeneralDataGrid";
 import useCustomContext from "../hooks/useCustomContext";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import SaveBuildModal from "../components/SaveBuildModal";
+import { useEffect, useState } from "react";
 
 // BuildR Feature
 // - I want to view a list of all amulets and rings and be able to sort them by keywords
@@ -45,6 +47,10 @@ function BuildR() {
     saveBuild
   } = useCustomContext();
 
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const handleClearBuild = () => {
     setBuilderRings([]);
     setBuilderAmulets([]);
@@ -53,10 +59,9 @@ function BuildR() {
   };
 
   const handleSaveBuild = () => {
+    handleClose();
     const ringIds = builderRings?.map((item) => item.id);
-    const amuletId = builderAmulets?.[0].id;  
-    console.log("ringIds", ringIds);
-    console.log("amuletId", amuletId);
+    const amuletId = builderAmulets && builderAmulets.length > 0 ? builderAmulets[0].id : null;
     saveBuild(ringIds, amuletId);
   };
 
@@ -163,7 +168,7 @@ function BuildR() {
                     <Button onClick={handleClearBuild}>Clear Build</Button>
                   </div>
                   <div>
-                    <Button onClick={handleSaveBuild}>Save Build</Button>
+                    <Button onClick={()=> handleOpen()}>Save Build</Button>
                   </div>
                 </>
               )}
@@ -204,6 +209,7 @@ function BuildR() {
           </div>
         </Grid>
       </Grid>
+      <SaveBuildModal open={open} handleClose={handleClose} handleSaveBuild={handleSaveBuild}/>
     </Container>
   );
 }
