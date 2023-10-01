@@ -17,7 +17,7 @@ const handleOpen = () => setOpen(true);
 const handleClose = () => setOpen(false);
 const [selectedItem, setSelectedItem] = useState(null);
 const [itemName, setItemName] = useState(null);
-console.log(ringApiInfo);
+
 
 
   return (

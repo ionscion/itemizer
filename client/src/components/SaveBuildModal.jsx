@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
+import { useState } from "react";
 
 const style = {
   position: "absolute",
@@ -17,8 +18,17 @@ const style = {
   p: 4,
 };
 
-
 export default function SaveBuildModal({ open, handleClose, handleSaveBuild }) {
+  const [buildName, setBuildName] = useState("");
+  const [buildDesc, setBuildDesc] = useState("");
+  const isButtonDisabled = !buildName || !buildDesc;
+
+  const handleSave = () => {
+    handleSaveBuild(buildName, buildDesc);
+    setBuildDesc("");
+    setBuildName("");
+  }
+
   return (
     <div>
       <Modal
@@ -36,25 +46,25 @@ export default function SaveBuildModal({ open, handleClose, handleSaveBuild }) {
             required
             id="buildName"
             label="Required"
-            // defaultValue="Build Name"
             placeholder="Build Name"
+            value={buildName}
+            onChange={(e) => setBuildName(e.target.value)}
+            helperText="Please enter a build name."
           />
           <TextField
             required
             id="desc"
             label="Required"
-            // defaultValue="Build Description"
             placeholder="Build Description"
+            value={buildDesc}
+            onChange={(e) => setBuildDesc(e.target.value)}
+            helperText="Please enter a description."
           />
           <div className="flex">
             <Button onClick={handleClose}>Cancel</Button>
             <Button
-              onClick={() =>
-                handleSaveBuild(
-                  document.getElementById("buildName").value,
-                  document.getElementById("desc").value
-                )
-              }
+              disabled={isButtonDisabled}
+              onClick={() => handleSave()}
             >
               Save Build
             </Button>
