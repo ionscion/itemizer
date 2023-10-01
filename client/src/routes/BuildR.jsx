@@ -9,6 +9,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import SaveBuildModal from "../components/SaveBuildModal";
 import { useEffect, useState } from "react";
+import Stack from "@mui/material/Stack";
 
 // BuildR Feature
 // - I want to view a list of all amulets and rings and be able to sort them by keywords
@@ -48,6 +49,8 @@ function BuildR() {
   } = useCustomContext();
 
   const [open, setOpen] = useState(false);
+  const [newSelected, setNewSelected] = useState(false);
+  const [oldSelected, setOldSelected] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -88,6 +91,16 @@ function BuildR() {
     setSelectedAmulet(value);
   };
 
+  const handleChoice = (value) => {
+    if (value === "New") {
+      setNewSelected(true);
+      setOldSelected(false);
+    } else {
+      setNewSelected(false);
+      setOldSelected(true);
+    }
+  };
+
   return (
     <Container maxWidth="lg" className="flex flex-row align-end">
       <Grid container spacing={3}>
@@ -95,36 +108,60 @@ function BuildR() {
 
         {/* Column 2: Search Bar */}
         <Grid item xs={12}>
+          {newSelected && (
+            <div className="flex m-5 space-x-4">
+              <SearchBar
+                label="Search Keywords"
+                options={keywordApiInfo?.map((option) => option.keyword)}
+                onChange={handleKeywordChange}
+                apiInfo={keywordApiInfo}
+              />
+              <SearchBar
+                label="Search Rings"
+                options={ringApiInfo?.map((option) => option.name)}
+                onChange={handleRingChange}
+                apiInfo={ringApiInfo}
+              />
+              <SearchBar
+                label="Search Amulets"
+                options={amuletApiInfo?.map((option) => option.name)}
+                onChange={handleAmuletChange}
+                apiInfo={amuletApiInfo}
+              />
+            </div>
+          )}
           <div className="flex m-5 space-x-4">
-            <SearchBar
-              label="Search Keywords"
-              options={keywordApiInfo?.map((option) => option.keyword)}
-              onChange={handleKeywordChange}
-              apiInfo={keywordApiInfo}
-            />
-            <SearchBar
-              label="Search Rings"
-              options={ringApiInfo?.map((option) => option.name)}
-              onChange={handleRingChange}
-              apiInfo={ringApiInfo}
-            />
-            <SearchBar
-              label="Search Amulets"
-              options={amuletApiInfo?.map((option) => option.name)}
-              onChange={handleAmuletChange}
-              apiInfo={amuletApiInfo}
-            />
+            <Stack direction="row" spacing={2}>
+              <Button variant="outlined" onClick={() => handleChoice("New")}>
+                New Build
+              </Button>
+              <Button variant="outlined" onClick={() => handleChoice("Old")}>
+                Retrieve Build
+              </Button>
+            </Stack>
+            {newSelected && <Typography>New Build</Typography>}
+            {oldSelected && <Typography>Retrieve Saved Builds</Typography>}
           </div>
         </Grid>
 
         {/* Column 3: Data Table */}
-        <Grid item xs={12}>
-          <div className="flex flex-col m-5">
-            <div>
-              <GeneralDataGrid />
+        {newSelected && (
+          <Grid item xs={12}>
+            <div className="flex flex-col m-5">
+              <div>
+                <GeneralDataGrid />
+              </div>
             </div>
-          </div>
-        </Grid>
+          </Grid>
+        )}
+
+        {oldSelected && (
+          <Grid item xs={12}>
+            <div className="flex flex-col m-5">
+              <div>"Retrieve Builds"</div>
+            </div>
+          </Grid>
+        )}
 
         <Grid item xs={8}>
           <div className="flex flex-col m-5">
